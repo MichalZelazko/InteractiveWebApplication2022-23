@@ -3,8 +3,7 @@ import java.util.Scanner;
 
 public class QuadraticEquationApp {
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        try {
+        try (Scanner input = new Scanner(System.in)) {
             double a = enterParameter(input, "a");
             double b = enterParameter(input, "b");
             double c = enterParameter(input, "c");
@@ -12,8 +11,6 @@ public class QuadraticEquationApp {
             equation.printRoots();
         } catch (NoRootsException e) {
             System.out.println(e.getMessage());
-        } finally {
-            input.close();
         }
     }
     private static double enterParameter(Scanner input, String parameter) {
