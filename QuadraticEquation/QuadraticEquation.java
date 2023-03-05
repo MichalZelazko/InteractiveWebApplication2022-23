@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class QuadraticEquation {
-    private double a, b, c;
+    private final double a, b, c;
     public QuadraticEquation(double a, double b, double c) {
         this.a = a;
         this.b = b;
