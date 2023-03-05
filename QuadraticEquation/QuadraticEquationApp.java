@@ -10,10 +10,10 @@ public class QuadraticEquationApp {
             double c = enterParameter(input, "c");
             QuadraticEquation equation = new QuadraticEquation(a, b, c);
             equation.printRoots();
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please try again.");
         } catch (NoRootsException e) {
             System.out.println(e.getMessage());
+        } finally {
+            input.close();
         }
     }
     private static double enterParameter(Scanner input, String parameter) {

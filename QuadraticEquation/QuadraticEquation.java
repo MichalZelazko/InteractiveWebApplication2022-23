@@ -14,6 +14,25 @@ public class QuadraticEquation {
 
     private ArrayList<Double> getRoots() throws NoRootsException {
         ArrayList<Double> roots = new ArrayList<>();
+        if (a == 0) {
+            roots.add(linearEquationCase());
+        } else
+            roots = quadraticEquationCase();
+        return roots;
+    }
+
+    private Double linearEquationCase() throws NoRootsException{
+        if (b == 0)
+            if (c == 0){
+                throw new NoRootsException("The equation is constant and equals 0. It has infinite roots.");
+            } else {
+                throw new NoRootsException("The equation is constant. It has no roots.");
+            }
+        return -c / b;
+    }
+
+    private ArrayList<Double> quadraticEquationCase() throws NoRootsException{
+        ArrayList<Double> roots = new ArrayList<>();
         if (getDiscriminant() < 0) {
             throw new NoRootsException("The equation has no real roots.");
         }
