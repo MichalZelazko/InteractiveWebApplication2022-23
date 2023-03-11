@@ -1,9 +1,15 @@
 package pl.dmcs.iwamzelazko.model;
 
 import java.util.ArrayList;
-
+import javax.validation.constraints.Digits;
 public class QuadraticEquation {
-    private double a, b, c;
+
+    @Digits(message = "Enter a valid digit, <up to 5 digits>.<up to 2 digits> expected", integer = 5, fraction = 2)
+    private double a;
+    @Digits(message = "Enter a valid digit, <up to 5 digits>.<up to 2 digits> expected", integer = 5, fraction = 2)
+    private double b;
+    @Digits(message = "Enter a valid digit, <up to 5 digits>.<up to 2 digits> expected", integer = 5, fraction = 2)
+    private double c;
 
     public double getA() {
         return a;

@@ -8,7 +8,7 @@
     <title>Add student</title>
 </head>
 <body>
-<h1>{message}</h1>
+<h1>${message}</h1>
 <h2>Student</h2>
 <form:form method="post" action="addStudent.html" modelAttribute="student">
     <form:label path="name">Name</form:label>
