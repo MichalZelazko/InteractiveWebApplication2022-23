@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.dmcs.iwamzelazko.model.Student;
 import pl.dmcs.iwamzelazko.repository.StudentRepository;
+
+import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +26,17 @@ public class StudentRESTController {
     //@GetMapping
     public List<Student> findAllStudents() {
         return studentRepository.findAll();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    //@GetMapping("/{id}")
+    public ResponseEntity<Student> findStudent(@PathVariable long id) {
+        Student student = studentRepository.findById(id);
+        if(student == null){
+            System.out.println("Student with id " + id + " not found");
+            return new ResponseEntity<Student>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Student>(student, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -46,12 +59,27 @@ public class StudentRESTController {
         return new ResponseEntity<Student>(HttpStatus.NO_CONTENT);
     }
 
+    @RequestMapping(method = RequestMethod.DELETE)
+    public ResponseEntity<Student> deleteStudents(){
+        studentRepository.deleteAll();
+        return new ResponseEntity<Student>(HttpStatus.NO_CONTENT);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     //@PutMapping("/{id}")
     public ResponseEntity<Student> updateStudent(@RequestBody Student student, @PathVariable("id") long id) {
         student.setId(id);
         studentRepository.save(student);
         return new ResponseEntity<Student>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<Student> updateStudents(@RequestBody List<Student> students){
+        studentRepository.deleteAll();
+        for(Student student : students){
+            studentRepository.save(student);
+        }
+        return new ResponseEntity<Student>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
