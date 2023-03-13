@@ -11,7 +11,7 @@ public class Student {
     private long id;
     private String name, surname, email, telephone;
 
-    private long getId() {
+    public long getId() {
         return id;
     }
 
