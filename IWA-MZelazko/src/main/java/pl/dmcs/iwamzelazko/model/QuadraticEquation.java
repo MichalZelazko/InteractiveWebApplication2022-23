@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import javax.validation.constraints.Digits;
 public class QuadraticEquation {
 
-    @Digits(message = "Enter a valid digit, <up to 5 digits>.<up to 2 digits> expected", integer = 5, fraction = 2)
+    @Digits(message = "Enter a valid digit, <up to 5 digits>.<up to 2 digits> expected", integer = 2, fraction = 2)
     private double a;
-    @Digits(message = "Enter a valid digit, <up to 5 digits>.<up to 2 digits> expected", integer = 5, fraction = 2)
+    @Digits(message = "Enter a valid digit, <up to 5 digits>.<up to 2 digits> expected", integer = 2, fraction = 2)
     private double b;
-    @Digits(message = "Enter a valid digit, <up to 5 digits>.<up to 2 digits> expected", integer = 5, fraction = 2)
+    @Digits(message = "Enter a valid digit, <up to 5 digits>.<up to 2 digits> expected", integer = 2, fraction = 2)
     private double c;
 
     public double getA() {
