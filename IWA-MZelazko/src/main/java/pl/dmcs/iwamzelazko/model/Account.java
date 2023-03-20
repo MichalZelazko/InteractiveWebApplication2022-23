@@ -12,6 +12,12 @@ public class Account {
     @GeneratedValue
     private long id;
 
+    private String accountName;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "account")
+    private Student student;
+
     public long getId() {
         return id;
     }
@@ -35,11 +41,4 @@ public class Account {
     public void setStudent(Student student) {
         this.student = student;
     }
-
-    private String accountName;
-
-    @JsonIgnore
-    @OneToOne(mappedBy = "account")
-    private Student student;
-
 }

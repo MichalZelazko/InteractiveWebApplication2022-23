@@ -6,6 +6,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.ManyToMany;
 
+import java.util.List;
+
 @Entity
 public class Team {
     @Id
@@ -14,8 +16,8 @@ public class Team {
     private String teamName;
 
     @JsonManagedReference
-    @ManyToMany(mappedBy = "team")
-    private Student student;
+    @ManyToMany(mappedBy = "teamList")
+    private List<Student> studentslist;
 
     public long getId() {
         return id;
@@ -33,11 +35,11 @@ public class Team {
         this.teamName = teamName;
     }
 
-    public Student getStudent() {
-        return student;
+    public List<Student> getStudentslist() {
+        return studentslist;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudentslist(List<Student> studentslist) {
+        this.studentslist = studentslist;
     }
 }
