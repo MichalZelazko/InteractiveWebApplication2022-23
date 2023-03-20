@@ -130,8 +130,9 @@ public class StudentRESTController {
         if (updates.containsKey("address")) {
             student.setAddress((Address) updates.get("address"));
         }
-        if (updates.containsKey("teamlist")) {
-            student.setTeamList((List<Team>) updates.get("teamlist"));
+        if (updates.containsKey("teamList")) {
+            //FIXME: pewnie nie działa
+            student.setTeamList((List<Team>) updates.get("teamList"));
         }
         if (updates.containsKey("account")) {
             student.setAccount((Account) updates.get("account"));
