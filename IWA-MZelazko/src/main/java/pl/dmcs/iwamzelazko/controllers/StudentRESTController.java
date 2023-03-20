@@ -4,11 +4,20 @@ package pl.dmcs.iwamzelazko.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import pl.dmcs.iwamzelazko.model.Account;
+import pl.dmcs.iwamzelazko.model.Address;
 import pl.dmcs.iwamzelazko.model.Student;
+import pl.dmcs.iwamzelazko.model.Team;
 import pl.dmcs.iwamzelazko.repository.StudentRepository;
+import pl.dmcs.iwamzelazko.repository.AddressRepository;
+import pl.dmcs.iwamzelazko.repository.TeamRepository;
+import pl.dmcs.iwamzelazko.repository.AccountRepository;
 
-import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +25,9 @@ import java.util.Map;
 @RequestMapping("/students")
 public class StudentRESTController {
     private StudentRepository studentRepository;
-
+    private AddressRepository addressRepository;
+    private TeamRepository teamRepository;
+    private AccountRepository accountRepository;
     @Autowired
     public StudentRESTController(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
@@ -42,6 +53,9 @@ public class StudentRESTController {
     @RequestMapping(method = RequestMethod.POST)
     //@PostMapping
     public ResponseEntity<Student> addStudent(@RequestBody Student student) {
+        if (student.getAddress().getId() <= 0){
+            addressRepository.save(student.getAddress());
+        }
         studentRepository.save(student);
         return new ResponseEntity<Student>(student, HttpStatus.CREATED);
     }
@@ -69,6 +83,9 @@ public class StudentRESTController {
     //@PutMapping("/{id}")
     public ResponseEntity<Student> updateStudent(@RequestBody Student student, @PathVariable("id") long id) {
         student.setId(id);
+        if (student.getAddress().getId() <= 0){
+            addressRepository.save(student.getAddress());
+        }
         studentRepository.save(student);
         return new ResponseEntity<Student>(HttpStatus.NO_CONTENT);
     }
@@ -76,7 +93,10 @@ public class StudentRESTController {
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<Student> updateStudents(@RequestBody List<Student> students){
         studentRepository.deleteAll();
-        for(Student student : students){
+        for (Student student : students){
+            if(student.getAddress().getId() <= 0) {
+                addressRepository.save(student.getAddress());
+            }
             studentRepository.save(student);
         }
         return new ResponseEntity<Student>(HttpStatus.OK);
@@ -106,6 +126,15 @@ public class StudentRESTController {
         }
         if (updates.containsKey("telephone")) {
             student.setTelephone((String) updates.get("telephone"));
+        }
+        if (updates.containsKey("address")) {
+            student.setAddress((Address) updates.get("address"));
+        }
+        if (updates.containsKey("teamlist")) {
+            student.setTeamList((List<Team>) updates.get("teamlist"));
+        }
+        if (updates.containsKey("account")) {
+            student.setAccount((Account) updates.get("account"));
         }
         studentRepository.save(student);
     }
