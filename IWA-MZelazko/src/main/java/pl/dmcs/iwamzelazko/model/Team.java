@@ -1,6 +1,6 @@
 package pl.dmcs.iwamzelazko.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +15,7 @@ public class Team {
     private long id;
     private String teamName;
 
-    @JsonManagedReference
+    @JsonIgnore
     @ManyToMany(mappedBy = "teamList")
     private List<Student> studentslist;
 

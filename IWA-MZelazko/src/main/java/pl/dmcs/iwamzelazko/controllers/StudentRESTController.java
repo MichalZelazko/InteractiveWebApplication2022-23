@@ -33,6 +33,21 @@ public class StudentRESTController {
         this.studentRepository = studentRepository;
     }
 
+    @Autowired
+    public void setAddressRepository(AddressRepository addressRepository) {
+        this.addressRepository = addressRepository;
+    }
+
+    @Autowired
+    public void setTeamRepository(TeamRepository teamRepository) {
+        this.teamRepository = teamRepository;
+    }
+
+    @Autowired
+    public void setAccountRepository(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     //@GetMapping
     public List<Student> findAllStudents() {
@@ -53,9 +68,9 @@ public class StudentRESTController {
     @RequestMapping(method = RequestMethod.POST)
     //@PostMapping
     public ResponseEntity<Student> addStudent(@RequestBody Student student) {
-        if (student.getAddress().getId() <= 0){
-            addressRepository.save(student.getAddress());
-        }
+//        if (student.getAddress().getId() <= 0){
+//            addressRepository.save(student.getAddress());
+//        }
         studentRepository.save(student);
         return new ResponseEntity<Student>(student, HttpStatus.CREATED);
     }

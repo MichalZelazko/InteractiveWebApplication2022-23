@@ -13,7 +13,8 @@ public class Address {
     private long id;
     private String street, number, city, postalCode;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "address-student")
+//    @JsonIgnore
     @OneToMany(mappedBy = "address", fetch = FetchType.EAGER)
     private List<Student> studentList;
 

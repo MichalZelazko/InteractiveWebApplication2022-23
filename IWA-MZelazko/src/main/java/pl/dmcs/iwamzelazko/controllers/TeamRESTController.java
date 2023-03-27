@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import pl.dmcs.iwamzelazko.model.Student;
 import pl.dmcs.iwamzelazko.model.Team;
+import pl.dmcs.iwamzelazko.repository.StudentRepository;
 import pl.dmcs.iwamzelazko.repository.TeamRepository;
 
 import java.util.List;
@@ -19,10 +21,16 @@ import java.util.Map;
 @RequestMapping("/teams")
 public class TeamRESTController {
     private TeamRepository teamRepository;
+    private StudentRepository studentRepository;
 
     @Autowired
     public TeamRESTController(TeamRepository teamRepository) {
         this.teamRepository = teamRepository;
+    }
+
+    @Autowired
+    public void setStudentRepository(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -53,12 +61,16 @@ public class TeamRESTController {
             System.out.println("Team with id " + id + " not found");
             return new ResponseEntity<Team>(HttpStatus.NOT_FOUND);
         }
+        detachStudentsFromTeam(team);
         teamRepository.delete(team);
         return new ResponseEntity<Team>(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
     public ResponseEntity<Team> deleteAllTeams(){
+        for (Team team : teamRepository.findAll()) {
+            detachStudentsFromTeam(team);
+        }
         teamRepository.deleteAll();
         return new ResponseEntity<Team>(HttpStatus.NO_CONTENT);
     }
@@ -68,6 +80,16 @@ public class TeamRESTController {
         team.setId(id);
         teamRepository.save(team);
         return new ResponseEntity<Team>(team, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<Team> updateAllTeams(@RequestBody List<Team> teams){
+        for (Team team : teams) {
+            detachStudentsFromTeam(team);
+        }
+        teamRepository.deleteAll(teams);
+        teamRepository.saveAll(teams);
+        return new ResponseEntity<Team>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
@@ -82,5 +104,11 @@ public class TeamRESTController {
         }
         teamRepository.save(team);
         return new ResponseEntity<Team>(team, HttpStatus.OK);
+    }
+
+    private void detachStudentsFromTeam(Team team){
+        for (Student student : studentRepository.findAll()) {
+            student.getTeamList().remove(team);
+        }
     }
 }

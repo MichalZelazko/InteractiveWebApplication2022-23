@@ -21,8 +21,8 @@ public class Student {
     @OneToOne(cascade = CascadeType.ALL)
     private Account account;
 
-    @JsonBackReference
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JsonBackReference(value = "address-student")
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Address address;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
