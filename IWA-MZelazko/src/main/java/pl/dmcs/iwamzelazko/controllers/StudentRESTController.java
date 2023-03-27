@@ -33,7 +33,7 @@ public class StudentRESTController {
         this.studentRepository = studentRepository;
     }
 
-    @RequestMapping(method = RequestMethod.GET/*, produces = "application/xml"*/)
+    @RequestMapping(method = RequestMethod.GET)
     //@GetMapping
     public List<Student> findAllStudents() {
         return studentRepository.findAll();

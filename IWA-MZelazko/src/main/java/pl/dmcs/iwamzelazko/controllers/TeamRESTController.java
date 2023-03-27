@@ -40,6 +40,12 @@ public class TeamRESTController {
         return new ResponseEntity<Team>(team, HttpStatus.OK);
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Team> addTeam(@RequestBody Team team){
+        teamRepository.save(team);
+        return new ResponseEntity<Team>(team, HttpStatus.CREATED);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Team> deleteTeam(@PathVariable("id") long id){
         Team team = teamRepository.findById(id);
@@ -48,6 +54,12 @@ public class TeamRESTController {
             return new ResponseEntity<Team>(HttpStatus.NOT_FOUND);
         }
         teamRepository.delete(team);
+        return new ResponseEntity<Team>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE)
+    public ResponseEntity<Team> deleteAllTeams(){
+        teamRepository.deleteAll();
         return new ResponseEntity<Team>(HttpStatus.NO_CONTENT);
     }
 

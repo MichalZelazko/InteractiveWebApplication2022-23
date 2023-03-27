@@ -1,5 +1,6 @@
 package pl.dmcs.iwamzelazko.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +16,7 @@ public class Address {
     private long id;
     private String street, number, city, postalCode;
 
-    @JsonManagedReference
+    @JsonIgnore
     @OneToMany(mappedBy = "address")
     private List<Student> studentList;
 

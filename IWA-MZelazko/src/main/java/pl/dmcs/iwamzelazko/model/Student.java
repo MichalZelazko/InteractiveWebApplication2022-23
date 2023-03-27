@@ -1,5 +1,6 @@
 package pl.dmcs.iwamzelazko.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,7 +21,8 @@ public class Student {
     @OneToOne(cascade = CascadeType.ALL)
     private Account account;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+//    @JsonBackReference
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Address address;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
