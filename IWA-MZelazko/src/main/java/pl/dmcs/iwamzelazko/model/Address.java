@@ -2,10 +2,7 @@ package pl.dmcs.iwamzelazko.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -16,8 +13,8 @@ public class Address {
     private long id;
     private String street, number, city, postalCode;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "address")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "address", fetch = FetchType.EAGER)
     private List<Student> studentList;
 
     public long getId() {

@@ -21,7 +21,7 @@ public class Student {
     @OneToOne(cascade = CascadeType.ALL)
     private Account account;
 
-//    @JsonBackReference
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Address address;
 
