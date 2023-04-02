@@ -1,0 +1,21 @@
+<form class="ui large form segment">
+  <h3 class="ui header">Quadratic Equation Solver</h3>
+  <div class="field">
+    <label for="a">A</label>
+    <input #a id="a" name="a" type="number">
+  </div>
+  <div class="field">
+    <label for="b">B:</label>
+    <input #b id="b" name="b" type="number">
+  </div>
+  <div class="field">
+    <label for="c">C:</label>
+    <input #c id="c" name="c" type="number">
+  </div>
+  <button
+    (click)="getRoots(a, b, c)"
+    class="ui positive right floated button">
+    Solve equation
+  </button>
+</form>
+<h2>{{equation.roots}}</h2>
