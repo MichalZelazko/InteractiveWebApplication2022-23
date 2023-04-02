@@ -13,9 +13,9 @@
     <input #c id="c" name="c" type="number">
   </div>
   <button
-    (click)="getRoots(a, b, c)"
+    (click)="solve(a, b, c)"
     class="ui positive right floated button">
     Solve equation
   </button>
 </form>
-<h2>{{equation.roots}}</h2>
+<h2>{{equation.getSolution()}}</h2>

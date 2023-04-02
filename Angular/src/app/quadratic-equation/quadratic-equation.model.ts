@@ -17,37 +17,44 @@ export class QuadraticEquation {
     this.roots = "";
   }
 
-  getDiscriminant() {
+  getDiscriminant(): number {
     return (this.b * this.b) - (4 * this.a * this.c);
   }
 
-  getRoots() {
+  getRoots(): void {
     if (this.a == 0) {
       this.linearEquationCase();
     } else
       this.quadraticEquationCase();
   }
 
-  linearEquationCase() {
+  linearEquationCase(): void {
     if (this.b == 0)
       if (this.c == 0) {
         this.roots = "The equation has infinite roots.";
+        return;
       } else {
         this.roots = "The equation has no real roots.";
+        return;
       }
     this.x1 = (this.c / this.b);
-    this.roots = "The equation has one root: " + this.x1;
+    this.roots = "The equation has one root: " + this.x1.toFixed(2);
   }
 
-  quadraticEquationCase() {
+  quadraticEquationCase(): void {
     if (this.getDiscriminant() < 0) {
       this.roots = "The equation has no real roots.";
     } else if (this.getDiscriminant() == 0) {
       this.x1 = (-(this.b) / (2 * this.a));
+      this.roots = "The equation has one root: " + this.x1.toFixed(2);
     } else {
       this.x1 = ((-(this.b) + Math.sqrt(this.getDiscriminant())) / (2 * this.a));
       this.x2 = ((-(this.b) - Math.sqrt(this.getDiscriminant())) / (2 * this.a));
-      this.roots = "The equation has two roots: " + this.x1 + " and " + this.x2;
+      this.roots = "The equation has two roots: " + this.x1.toFixed(2) + " and " + this.x2.toFixed(2);
     }
+  }
+
+  getSolution(): string {
+    return this.roots;
   }
 }

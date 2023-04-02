@@ -8,18 +8,18 @@ import {Article} from './article.model';
 })
 export class ArticleComponent implements OnInit{
   @HostBinding('attr.class') cssClass = 'row';
-  // @ts-ignore
-  @Input() article: Article;
+
+  @Input() article?: Article;
 
   constructor() {}
 
   voteUp(): boolean {
-    this.article.voteUp();
+    this.article?.voteUp();
     return false;
   }
 
   voteDown(): boolean {
-    this.article.voteDown();
+    this.article?.voteDown();
     return false;
   }
 
