@@ -14,6 +14,7 @@ export class QuadraticEquationComponent implements OnInit{
   constructor() {}
 
   solve(a: HTMLInputElement, b:HTMLInputElement, c:HTMLInputElement): boolean {
+    console.log(`Solving for a: ${a.value}, b: ${b.value}, c: ${c.value}`)
     if(a.value == '' || b.value == '' || c.value == '') {
       alert('Please fill in all fields');
     } else {
