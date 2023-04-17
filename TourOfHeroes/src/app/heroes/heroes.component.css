@@ -73,7 +73,7 @@ input {
   background-color: #42545C;
 }
 
-button.delete {
+button.delete-button {
   position: absolute;
   left: 210px;
   top: 5px;

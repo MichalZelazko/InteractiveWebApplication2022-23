@@ -9,8 +9,8 @@
 
 <h1>{{ title }}</h1>
 <nav>
-  <a routerLink="/dashboard">Dashboard</a>
-  <a routerLink="/heroes">Heroes</a>
+  <a routerLink="/dashboard" (mouseover)="changeColor($event)">Dashboard</a>
+  <a routerLink="/heroes" (mouseover)="changeColor($event)">Heroes</a>
 </nav>
 <router-outlet></router-outlet>
 <app-messages></app-messages>
