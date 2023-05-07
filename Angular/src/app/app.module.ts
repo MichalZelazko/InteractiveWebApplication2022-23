@@ -7,8 +7,10 @@ import { UserItemComponent } from './user-item/user-item.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { ArticleComponent } from './article/article.component';
 import { QuadraticEquationComponent } from './quadratic-equation/quadratic-equation.component';
+import { HttpClientModule } from "@angular/common/http";
 import {appRoutingModule} from "./app.routing";
 import { RedditComponent } from './reddit/reddit.component';
+import { StudentsComponent } from './students/students.component';
 
 @NgModule({
   declarations: [
@@ -18,10 +20,12 @@ import { RedditComponent } from './reddit/reddit.component';
     UserListComponent,
     ArticleComponent,
     QuadraticEquationComponent,
-    RedditComponent
+    RedditComponent,
+    StudentsComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     appRoutingModule
   ],
   providers: [],

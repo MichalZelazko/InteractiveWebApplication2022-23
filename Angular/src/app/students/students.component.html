@@ -1,0 +1,32 @@
+<h2>Students</h2>
+<div>
+  <label>Student firstname:
+    <input #studentFirstname />
+  </label>
+  <br>
+  <label>Student lastname:
+    <input #studentLastname />
+  </label>
+  <br>
+  <label>Student email:
+    <input #studentEmail>
+  </label>
+  <br>
+  <label>Student telephone:
+    <input #studentTelephone>
+  </label>
+  <br>
+
+  <button (click)="add(studentFirstname.value, studentLastname.value, studentEmail.value, studentTelephone.value); studentFirstname.value=''; studentLastname.value=''; studentEmail.value=''; studentTelephone.value=''">
+    Add Student
+  </button>
+</div>
+<ul>
+  <li *ngFor="let student of studentList">
+    <span class="badge">{{student.id}}</span> {{student.firstname}} {{student.lastname}} {{student.email}} {{student.telephone}}
+    <button class="delete" (click)="delete(student.id)">x</button>
+    <button class="update" (click)="update(studentFirstname.value, studentLastname.value, studentEmail.value, studentTelephone.value, student);  studentFirstname.value=''; studentLastname.value=''; studentEmail.value=''; studentTelephone.value=''" >update</button>
+  </li>
+</ul>
+<button title="delete all" (click)="deleteAll()">Delete All</button>
+```
