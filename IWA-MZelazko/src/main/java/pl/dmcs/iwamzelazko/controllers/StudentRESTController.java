@@ -4,11 +4,7 @@ package pl.dmcs.iwamzelazko.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.dmcs.iwamzelazko.model.Account;
 import pl.dmcs.iwamzelazko.model.Address;
 import pl.dmcs.iwamzelazko.model.Student;
@@ -22,31 +18,28 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/students")
 public class StudentRESTController {
     private StudentRepository studentRepository;
     private AddressRepository addressRepository;
-    private TeamRepository teamRepository;
-    private AccountRepository accountRepository;
+//    private TeamRepository teamRepository;
+//    private AccountRepository accountRepository;
     @Autowired
-    public StudentRESTController(StudentRepository studentRepository) {
+    public StudentRESTController(StudentRepository studentRepository, AddressRepository addressRepository) {
         this.studentRepository = studentRepository;
-    }
-
-    @Autowired
-    public void setAddressRepository(AddressRepository addressRepository) {
         this.addressRepository = addressRepository;
     }
 
-    @Autowired
-    public void setTeamRepository(TeamRepository teamRepository) {
-        this.teamRepository = teamRepository;
-    }
-
-    @Autowired
-    public void setAccountRepository(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
-    }
+//    @Autowired
+//    public void setTeamRepository(TeamRepository teamRepository) {
+//        this.teamRepository = teamRepository;
+//    }
+//
+//    @Autowired
+//    public void setAccountRepository(AccountRepository accountRepository) {
+//        this.accountRepository = accountRepository;
+//    }
 
     @RequestMapping(method = RequestMethod.GET)
     //@GetMapping
@@ -94,28 +87,28 @@ public class StudentRESTController {
         return new ResponseEntity<Student>(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    //@PutMapping("/{id}")
-    public ResponseEntity<Student> updateStudent(@RequestBody Student student, @PathVariable("id") long id) {
-        student.setId(id);
-        if (student.getAddress().getId() <= 0){
-            addressRepository.save(student.getAddress());
-        }
-        studentRepository.save(student);
-        return new ResponseEntity<Student>(HttpStatus.NO_CONTENT);
-    }
+//    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+//    //@PutMapping("/{id}")
+//    public ResponseEntity<Student> updateStudent(@RequestBody Student student, @PathVariable("id") long id) {
+//        student.setId(id);
+//        if (student.getAddress().getId() <= 0){
+//            addressRepository.save(student.getAddress());
+//        }
+//        studentRepository.save(student);
+//        return new ResponseEntity<Student>(HttpStatus.NO_CONTENT);
+//    }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<Student> updateStudents(@RequestBody List<Student> students){
-        studentRepository.deleteAll();
-        for (Student student : students){
-            if(student.getAddress().getId() <= 0) {
-                addressRepository.save(student.getAddress());
-            }
-            studentRepository.save(student);
-        }
-        return new ResponseEntity<Student>(HttpStatus.OK);
-    }
+//    @RequestMapping(method = RequestMethod.PUT)
+//    public ResponseEntity<Student> updateStudents(@RequestBody List<Student> students){
+//        studentRepository.deleteAll();
+//        for (Student student : students){
+//            if(student.getAddress().getId() <= 0) {
+//                addressRepository.save(student.getAddress());
+//            }
+//            studentRepository.save(student);
+//        }
+//        return new ResponseEntity<Student>(HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
     //@PatchMapping("/{id}")
@@ -142,16 +135,16 @@ public class StudentRESTController {
         if (updates.containsKey("telephone")) {
             student.setTelephone((String) updates.get("telephone"));
         }
-        if (updates.containsKey("address")) {
-            student.setAddress((Address) updates.get("address"));
-        }
-        if (updates.containsKey("teamList")) {
-            //FIXME: pewnie nie działa
-            student.setTeamList((List<Team>) updates.get("teamList"));
-        }
-        if (updates.containsKey("account")) {
-            student.setAccount((Account) updates.get("account"));
-        }
+//        if (updates.containsKey("address")) {
+//            student.setAddress((Address) updates.get("address"));
+//        }
+//        if (updates.containsKey("teamList")) {
+//            //FIXME: pewnie nie działa
+//            student.setTeamList((List<Team>) updates.get("teamList"));
+//        }
+//        if (updates.containsKey("account")) {
+//            student.setAccount((Account) updates.get("account"));
+//        }
         studentRepository.save(student);
     }
 }

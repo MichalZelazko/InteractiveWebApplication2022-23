@@ -11,6 +11,7 @@ import { HttpClientModule } from "@angular/common/http";
 import {appRoutingModule} from "./app.routing";
 import { RedditComponent } from './reddit/reddit.component';
 import { StudentsComponent } from './students/students.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { StudentsComponent } from './students/students.component';
     ArticleComponent,
     QuadraticEquationComponent,
     RedditComponent,
-    StudentsComponent
+    StudentsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

@@ -13,10 +13,10 @@ public class Address {
     private long id;
     private String street, number, city, postalCode;
 
-    @JsonManagedReference(value = "address-student")
-//    @JsonIgnore
-    @OneToMany(mappedBy = "address", fetch = FetchType.EAGER)
-    private List<Student> studentList;
+//    @JsonManagedReference(value = "address-student")
+////    @JsonIgnore
+//    @OneToMany(mappedBy = "address", fetch = FetchType.EAGER)
+//    private List<Student> studentList;
 
     public long getId() {
         return id;
@@ -56,11 +56,11 @@ public class Address {
         this.number = number;
     }
 
-    public List<Student> getStudentList() {
-        return studentList;
-    }
-
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
-    }
+//    public List<Student> getStudentList() {
+//        return studentList;
+//    }
+//
+//    public void setStudentList(List<Student> studentList) {
+//        this.studentList = studentList;
+//    }
 }

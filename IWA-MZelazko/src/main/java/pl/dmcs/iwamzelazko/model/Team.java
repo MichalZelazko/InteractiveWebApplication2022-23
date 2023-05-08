@@ -15,9 +15,9 @@ public class Team {
     private long id;
     private String teamName;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "teamList")
-    private List<Student> studentslist;
+//    @JsonIgnore
+//    @ManyToMany(mappedBy = "teamList")
+//    private List<Student> studentslist;
 
     public long getId() {
         return id;
@@ -35,11 +35,11 @@ public class Team {
         this.teamName = teamName;
     }
 
-    public List<Student> getStudentslist() {
-        return studentslist;
-    }
-
-    public void setStudentslist(List<Student> studentslist) {
-        this.studentslist = studentslist;
-    }
+//    public List<Student> getStudentslist() {
+//        return studentslist;
+//    }
+//
+//    public void setStudentslist(List<Student> studentslist) {
+//        this.studentslist = studentslist;
+//    }
 }

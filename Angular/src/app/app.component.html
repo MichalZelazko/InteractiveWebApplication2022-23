@@ -10,9 +10,11 @@
 <!-- Toolbar -->
 
 <nav>
-  <div class="ui two item menu">
-    <a class="item" routerLink="/">Reddit</a>
-    <a class="item" routerLink="/quadratic-equation">Quadratic Equation</a>
+  <div class="ui four item menu">
+    <a class="item" routerLink="/" (mouseover)="changeColor($event)" (mouseleave)="changeTextColor($event)">Home</a>
+    <a class="item" routerLink="/reddit" (mouseover)="changeColor($event)" (mouseleave)="changeTextColor($event)">Reddit</a>
+    <a class="item" routerLink="/quadratic-equation" (mouseover)="changeColor($event)" (mouseleave)="changeTextColor($event)">Quadratic Equation</a>
+    <a class="item" routerLink="/students" (mouseover)="changeColor($event)" (mouseleave)="changeTextColor($event)">Students</a>
   </div>
 </nav>
 

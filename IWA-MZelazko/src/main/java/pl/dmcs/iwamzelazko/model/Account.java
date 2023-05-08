@@ -15,8 +15,8 @@ public class Account {
     private String accountName;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "account")
-    private Student student;
+//    @OneToOne(mappedBy = "account")
+//    private Student student;
 
     public long getId() {
         return id;
@@ -34,11 +34,11 @@ public class Account {
         this.accountName = accountName;
     }
 
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
+//    public Student getStudent() {
+//        return student;
+//    }
+//
+//    public void setStudent(Student student) {
+//        this.student = student;
+//    }
 }

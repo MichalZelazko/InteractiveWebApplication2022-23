@@ -1,32 +1,36 @@
-<h2>Students</h2>
+<h2 (dblclick)="increaseFontSize($event)">Students</h2>
 <div>
   <label>Student firstname:
-    <input #studentFirstname />
+    <input #studentFirstName (paste)="pasteInform()" (copy)="copyInform()"/>
   </label>
   <br>
   <label>Student lastname:
-    <input #studentLastname />
+    <input #studentLastName (paste)="pasteInform()" (copy)="copyInform()"/>
   </label>
   <br>
   <label>Student email:
-    <input #studentEmail>
+    <input #studentEmail (paste)="pasteInform()" (copy)="copyInform()"/>
   </label>
   <br>
   <label>Student telephone:
-    <input #studentTelephone>
+    <input #studentTelephone (paste)="pasteInform()" (copy)="copyInform()"/>
   </label>
   <br>
-
-  <button (click)="add(studentFirstname.value, studentLastname.value, studentEmail.value, studentTelephone.value); studentFirstname.value=''; studentLastname.value=''; studentEmail.value=''; studentTelephone.value=''">
-    Add Student
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(studentFirstName.value, studentLastName.value, studentEmail.value, studentTelephone.value);
+                  studentFirstName.value=''; studentLastName.value=''; studentEmail.value=''; studentTelephone.value=''">
+    add
   </button>
 </div>
 <ul>
   <li *ngFor="let student of studentList">
-    <span class="badge">{{student.id}}</span> {{student.firstname}} {{student.lastname}} {{student.email}} {{student.telephone}}
-    <button class="delete" (click)="delete(student.id)">x</button>
-    <button class="update" (click)="update(studentFirstname.value, studentLastname.value, studentEmail.value, studentTelephone.value, student);  studentFirstname.value=''; studentLastname.value=''; studentEmail.value=''; studentTelephone.value=''" >update</button>
+    <span class="badge">{{student.id}}</span> {{ student.name }} {{ student.surname }} {{ student.email }} {{ student.telephone }}
+    <button title="delete" (click)="delete(student)">delete</button>
+    <button title="update" (click)="update(studentFirstName.value,studentLastName.value, studentEmail.value, studentTelephone.value, student);
+                            studentFirstName.value=''; studentLastName.value=''; studentEmail.value=''; studentTelephone.value=''">
+      Update
+    </button>
   </li>
 </ul>
-<button title="delete all" (click)="deleteAll()">Delete All</button>
-```
+<button title="delete all" (click)="deleteAll()">delete all</button>
+

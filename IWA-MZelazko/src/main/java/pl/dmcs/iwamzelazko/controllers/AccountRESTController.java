@@ -3,11 +3,7 @@ package pl.dmcs.iwamzelazko.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.dmcs.iwamzelazko.model.Account;
 import pl.dmcs.iwamzelazko.model.Student;
 import pl.dmcs.iwamzelazko.repository.AccountRepository;
@@ -16,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/accounts")
 public class AccountRESTController {
     private AccountRepository accountRepository;
@@ -68,9 +65,9 @@ public class AccountRESTController {
         if(updates.containsKey("accountName")){
             account.setAccountName((String) updates.get("accountName"));
         }
-        if(updates.containsKey("student")){
-            account.setStudent((Student) updates.get("student"));
-        }
+//        if(updates.containsKey("student")){
+//            account.setStudent((Student) updates.get("student"));
+//        }
         accountRepository.save(account);
         return new ResponseEntity<Account>(HttpStatus.OK);
     }
