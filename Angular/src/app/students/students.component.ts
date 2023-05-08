@@ -81,6 +81,7 @@ export class StudentsComponent implements OnInit {
             if (this.studentList != undefined) {
               this.studentService.totalItems.next(this.studentList.length);
               console.log(this.studentList.length);
+              window.location.reload();
             }
           }
         })
