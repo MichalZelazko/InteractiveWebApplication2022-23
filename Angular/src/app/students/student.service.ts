@@ -68,11 +68,18 @@ export class StudentService {
   /** PUT: update all the students on the server */
   updateStudents(students: Student[]): Observable<Student[]> {
     return this.http.put<Student[]>(this.studentsUrl, students, httpOptions).pipe(
-      tap(_ => this.log(`updated student id=${students}`)),
-      catchError(this.handleError<any>('updateStudent'))
+      tap(_ => this.log('updated students ${students}')),
+      catchError(this.handleError<any>('updateStudents'))
     );
   }
 
+  /** PATCH: update the student on the server only if he/she exists */
+  patchStudent(student: Student, id: number): Observable<Student> {
+    return this.http.patch<Student>(`${this.studentsUrl}/${id}`, student, httpOptions).pipe(
+      tap((studentPatched: Student) => this.log('patched student id=${studentPatched.id}')),
+      catchError(this.handleError<any>('patchStudent'))
+    );
+  }
   /**
    * Handle Http operation that failed.
    * Let the app continue.

@@ -32,5 +32,9 @@
     </button>
   </li>
 </ul>
+<button title="update all" (click)="updateAll(studentFirstName.value,studentLastName.value, studentEmail.value, studentTelephone.value);
+                            studentFirstName.value=''; studentLastName.value=''; studentEmail.value=''; studentTelephone.value=''">
+  Update all
+</button>
 <button title="delete all" (click)="deleteAll()">delete all</button>
 
