@@ -10,11 +10,20 @@
 <!-- Toolbar -->
 
 <nav>
-  <div class="ui four item menu">
+  <div class="ui five item menu">
     <a class="item" routerLink="/" (mouseover)="changeColor($event)" (mouseleave)="changeTextColor($event)">Home</a>
     <a class="item" routerLink="/reddit" (mouseover)="changeColor($event)" (mouseleave)="changeTextColor($event)">Reddit</a>
     <a class="item" routerLink="/quadratic-equation" (mouseover)="changeColor($event)" (mouseleave)="changeTextColor($event)">Quadratic Equation</a>
     <a class="item" routerLink="/students" (mouseover)="changeColor($event)" (mouseleave)="changeTextColor($event)">Students</a>
+    <li *ngIf="authority === 'user'" class="item">
+      <a class="nav-link" routerLink="user">User Page</a>
+    </li>
+    <li *ngIf="authority === 'admin'" class="item">
+      <a class="nav-link" routerLink="admin">Admin Page</a>
+    </li>
+    <li *ngIf="!authority" class="item">
+      <a class="nav-link" routerLink="auth/login">Login</a>
+    </li>
   </div>
 </nav>
 
