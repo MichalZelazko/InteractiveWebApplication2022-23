@@ -1,17 +1,17 @@
 package pl.dmcs.project_backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
 public class Teacher extends Person{
         @Id
-        @GeneratedValue
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private long id;
         private String academicDegree;
+
+        @OneToMany(mappedBy = "teacher")
         private List<Subject> subjects;
 
 

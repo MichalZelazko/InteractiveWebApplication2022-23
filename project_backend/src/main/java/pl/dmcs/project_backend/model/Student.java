@@ -1,18 +1,18 @@
 package pl.dmcs.project_backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Student extends Person{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String indexNumber;
 
-    private List<Subject> subjects;
-    private int[] grades;
+    @OneToMany
+    private List<Grade> grades;
 
     public String getIndexNumber() {
         return indexNumber;
@@ -22,19 +22,11 @@ public class Student extends Person{
         this.indexNumber = indexNumber;
     }
 
-    public List<Subject> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<Subject> subjects) {
-        this.subjects = subjects;
-    }
-
-    public int[] getGrades() {
+    public List<Grade> getGrades() {
         return grades;
     }
 
-    public void setGrades(int[] grades) {
+    public void setGrades(List<Grade> grades) {
         this.grades = grades;
     }
 }

@@ -1,8 +1,6 @@
 package pl.dmcs.project_backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -10,11 +8,13 @@ import java.util.List;
 @Entity
 public class Subject {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+
+    @ManyToOne
     private Teacher teacher;
-    private List<Student> students;
+
 
     public long getId() {
         return id;
@@ -22,14 +22,6 @@ public class Subject {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
     }
 
     public String getName() {
