@@ -1,9 +1,6 @@
 package pl.dmcs.project_backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -18,9 +15,41 @@ public class Grade {
     @Max(5)
     private int grade;
 
-    @OneToOne
+    @ManyToOne
     private Student student;
 
-    @OneToOne
+    @ManyToOne
     private Subject subject;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
 }

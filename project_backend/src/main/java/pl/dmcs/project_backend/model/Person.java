@@ -1,5 +1,8 @@
 package pl.dmcs.project_backend.model;
 
+import jakarta.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public class Person {
     private String firstName;
     private String lastName;
