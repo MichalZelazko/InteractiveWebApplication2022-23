@@ -2,31 +2,31 @@ package pl.dmcs.project_backend.model;
 
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Student extends Person{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String indexNumber;
+    private long id;
 
-    @OneToMany
-    private List<Grade> grades;
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Grade> grades;
 
-    public String getIndexNumber() {
-        return indexNumber;
+    public long getId() {
+        return id;
     }
 
-    public void setIndexNumber(String indexNumber) {
-        this.indexNumber = indexNumber;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public List<Grade> getGrades() {
+    public Set<Grade> getGrades() {
         return grades;
     }
 
-    public void setGrades(List<Grade> grades) {
+    public void setGrades(Set<Grade> grades) {
         this.grades = grades;
     }
 }

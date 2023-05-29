@@ -1,4 +1,4 @@
-package pl.dmcs.iwamzelazko.model;
+package pl.dmcs.project_backend.model;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.NaturalId;
@@ -36,3 +36,4 @@ public class Role {
         this.name = name;
     }
 }
+

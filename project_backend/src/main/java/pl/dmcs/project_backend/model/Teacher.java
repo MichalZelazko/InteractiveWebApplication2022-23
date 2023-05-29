@@ -1,8 +1,9 @@
 package pl.dmcs.project_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Teacher extends Person{
@@ -12,7 +13,7 @@ public class Teacher extends Person{
         private String academicDegree;
 
         @OneToMany(mappedBy = "teacher")
-        private List<Subject> subjects;
+        private Set<Subject> subjects;
 
 
 
@@ -24,11 +25,11 @@ public class Teacher extends Person{
                 this.id = id;
         }
 
-        public List<Subject> getSubjects() {
+        public Set<Subject> getSubjects() {
                 return subjects;
         }
 
-        public void setSubjects(List<Subject> subjects) {
+        public void setSubjects(Set<Subject> subjects) {
                 this.subjects = subjects;
         }
 

@@ -1,4 +1,4 @@
-package pl.dmcs.iwamzelazko.model;
+package pl.dmcs.project_backend.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -22,6 +22,7 @@ public class User {
     @NotBlank
     @Size(min=6, max = 100)
     private String password;
+
 
 
     @ManyToMany(fetch = FetchType.EAGER)
