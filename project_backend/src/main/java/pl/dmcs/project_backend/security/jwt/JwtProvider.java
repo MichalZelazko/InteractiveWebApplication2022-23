@@ -4,7 +4,7 @@ import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import pl.dmcs.iwamzelazko.security.services.UserPrinciple;
+import pl.dmcs.project_backend.security.services.UserPrinciple;
 
 import java.util.Date;
 

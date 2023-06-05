@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.dmcs.iwamzelazko.model.User;
-import pl.dmcs.iwamzelazko.repository.UserRepository;
+import pl.dmcs.project_backend.model.User;
+import pl.dmcs.project_backend.repository.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl  implements UserDetailsService {

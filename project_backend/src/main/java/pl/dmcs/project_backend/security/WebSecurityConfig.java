@@ -12,9 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import pl.dmcs.iwamzelazko.security.jwt.JwtAuthEntryPoint;
-import pl.dmcs.iwamzelazko.security.jwt.JwtAuthTokenFilter;
-import pl.dmcs.iwamzelazko.security.services.UserDetailsServiceImpl;
+import pl.dmcs.project_backend.security.jwt.JwtAuthEntryPoint;
+import pl.dmcs.project_backend.security.jwt.JwtAuthTokenFilter;
+import pl.dmcs.project_backend.security.services.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -52,6 +52,9 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/students/**").permitAll()
+                        .requestMatchers("/teachers/**").permitAll()
+                        .requestMatchers("/subjects/**").permitAll()
+                        .requestMatchers("/grades/**").permitAll()
                         .requestMatchers("/error").permitAll() // this enables the body in the exception responses
                         .requestMatchers("/exampleSecurity/user").hasRole("USER")
                         .requestMatchers("/exampleSecurity/admin").hasRole("ADMIN")

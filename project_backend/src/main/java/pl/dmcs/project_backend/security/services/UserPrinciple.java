@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pl.dmcs.iwamzelazko.model.User;
+import pl.dmcs.project_backend.model.User;
 
 import java.util.Collection;
 import java.util.List;
