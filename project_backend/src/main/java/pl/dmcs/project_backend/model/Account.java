@@ -14,9 +14,6 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Student student;
-
     @NotBlank
     @Size(min = 3, max = 20)
     private String username;
@@ -42,14 +39,6 @@ public class Account {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
     }
 
     public String getUsername() {

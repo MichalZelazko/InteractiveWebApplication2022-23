@@ -10,9 +10,6 @@ public class Person {
     private String name;
     private String surname;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Account account;
-
     public Person() {
     }
 
@@ -32,11 +29,4 @@ public class Person {
         this.surname = surname;
     }
 
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
 }

@@ -4,13 +4,18 @@ import jakarta.persistence.*;
 
 import java.util.Set;
 
+@Entity
 public class Teacher extends Person{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id")
+    private Account account;
+
+    @OneToMany(mappedBy ="teacher", cascade = CascadeType.PERSIST)
     private Set<Subject> subjects;
 
     public long getId() {

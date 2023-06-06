@@ -2,6 +2,7 @@ package pl.dmcs.project_backend.model;
 
 import jakarta.persistence.*;
 
+@Entity
 public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

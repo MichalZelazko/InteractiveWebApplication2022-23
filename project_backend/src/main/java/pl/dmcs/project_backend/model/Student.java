@@ -11,7 +11,11 @@ public class Student extends Person{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id")
+    private Account account;
+
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Grade> grades;
 
     public long getId() {
