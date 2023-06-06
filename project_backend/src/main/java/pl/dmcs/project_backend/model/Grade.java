@@ -8,7 +8,7 @@ import javax.validation.constraints.Min;
 @Entity
 public class Grade {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Min(2)

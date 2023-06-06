@@ -8,39 +8,48 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="users")
-public class User {
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Student student;
 
     @NotBlank
-    @Size(min=3, max = 50)
+    @Size(min = 3, max = 20)
     private String username;
 
     @NotBlank
-    @Size(min=6, max = 100)
+    @Size(min = 6, max = 20)
     private String password;
-
-
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
 
-    public User() {}
+    public Account() {
+    }
 
-    public User(@NotBlank @Size(min = 3, max = 50) String username, @NotBlank @Size(min = 6, max = 100) String password) {
+    public Account(@NotBlank @Size(min = 3, max = 20) String username, @NotBlank @Size(min = 6, max = 20) String password) {
         this.username = username;
         this.password = password;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public String getUsername() {

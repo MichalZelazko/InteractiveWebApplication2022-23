@@ -11,7 +11,7 @@ public class Student extends Person{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Set<Grade> grades;
 
     public long getId() {

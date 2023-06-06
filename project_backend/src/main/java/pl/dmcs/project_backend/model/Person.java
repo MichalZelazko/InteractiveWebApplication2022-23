@@ -1,34 +1,42 @@
 package pl.dmcs.project_backend.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.OneToOne;
 
 @MappedSuperclass
 public class Person {
-    private String firstName;
-    private String lastName;
-    private String pesel;
 
-    public String getFirstName() {
-        return firstName;
+    private String name;
+    private String surname;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Account account;
+
+    public Person() {
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public String getName() {
+        return name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public String getSurname() {
+        return surname;
     }
 
-    public String getPesel() {
-        return pesel;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public void setPesel(String pesel) {
-        this.pesel = pesel;
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }
