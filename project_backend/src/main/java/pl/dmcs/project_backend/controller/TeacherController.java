@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.dmcs.project_backend.model.Teacher;
+import pl.dmcs.project_backend.repository.AccountRepository;
+import pl.dmcs.project_backend.repository.SubjectRepository;
 import pl.dmcs.project_backend.repository.TeacherRepository;
 
 import java.util.List;
@@ -14,10 +16,13 @@ import java.util.List;
 @RequestMapping("/teachers")
 public class TeacherController {
     private TeacherRepository teacherRepository;
+    private SubjectRepository subjectRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
-    public TeacherController(TeacherRepository teacherRepository) {
+    public TeacherController(TeacherRepository teacherRepository, SubjectRepository subjectRepository) {
         this.teacherRepository = teacherRepository;
+        this.subjectRepository = subjectRepository;
     }
 
     @GetMapping
