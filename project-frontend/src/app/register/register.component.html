@@ -1,0 +1,45 @@
+<div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
+<div *ngIf="isSignedUp; else signupForm">
+  Your registration is successful.
+</div>
+
+<ng-template #signupForm>
+  <div class="w-full bg-gray-200 rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 ">
+    <form class="space-y-4 md:space-y-6 p-5" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <div class="form-group">
+        <label for="username" id="username" class="block mb-2 text-sm font-medium text-gray-900">Username</label>
+        <input type="text" class="form-control bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" name="username" [(ngModel)]="form.username" #username="ngModel"
+               required />
+        <div *ngIf="f.submitted && username.invalid">
+          <div class="mt-2 text-sm font-light text-gray-500" *ngIf="['username.errors?.required']">Username is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" id="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
+        <input type="password" class="form-control bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" name="password" [(ngModel)]="form.password" #password="ngModel"
+               required minlength="6" />
+        <div *ngIf="f.submitted && password.invalid">
+          <div class="mt-2 text-sm font-light text-gray-500" *ngIf="['password.errors?.required']">Password is required</div>
+          <div class="mt-2 text-sm font-light text-gray-500" *ngIf="['password.errors?.minlength']">Password must be at least 6 characters</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="role" id="role" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
+        <select class="form-control bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" name="role" [(ngModel)]="form.role" #role="ngModel" required>
+          <option value="teacher">Teacher</option>
+          <option value="student">Student</option>
+        </select>
+        <div *ngIf="f.submitted && role.invalid">
+          <div class="mt-2 text-sm font-light text-gray-500" *ngIf="['role.errors?.required']">Role is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="w-full text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-gray-900 hover:bg-gray-950 focus:ring-primary-800">Register</button>
+        <div *ngIf="f.submitted && isSignUpFailed" class="mt-2 text-sm font-light text-gray-500" >
+          Registration failed: {{errorMessage}}
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+</div>

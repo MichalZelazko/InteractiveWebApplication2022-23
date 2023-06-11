@@ -2,6 +2,8 @@ package pl.dmcs.project_backend.controller;
 
 
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -73,20 +75,22 @@ public class AuthController {
         Set<Role> roles = new HashSet<>();
         strRoles.forEach(role -> {
             switch (role) {
-                case "admin":
+                case "admin" -> {
                     Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
                             .orElseThrow(() -> new RuntimeException("Fail -> Cause: Admin Role not found."));
                     roles.add(adminRole);
-                    break;
-                case "teacher":
+                }
+                case "teacher" -> {
                     Role teacherRole = roleRepository.findByName(RoleName.ROLE_TEACHER)
                             .orElseThrow(() -> new RuntimeException("Fail -> Cause: Teacher Role not found."));
                     roles.add(teacherRole);
-                    break;
-                default:
+                }
+                case "student" -> {
                     Role studentRole = roleRepository.findByName(RoleName.ROLE_STUDENT)
-                            .orElseThrow(() -> new RuntimeException("Fail -> Cause: User Role not found."));
+                            .orElseThrow(() -> new RuntimeException("Fail -> Cause: Student Role not found."));
                     roles.add(studentRole);
+                }
+                default -> throw new RuntimeException("Fail -> Cause: Role not found.");
             }
         });
         user.setRoles(roles);

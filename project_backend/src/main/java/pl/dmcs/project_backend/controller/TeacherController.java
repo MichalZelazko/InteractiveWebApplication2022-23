@@ -46,12 +46,6 @@ public class TeacherController {
         return new ResponseEntity<>(teacher, HttpStatus.CREATED);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Teacher> deleteAllTeachers(){
-        teacherRepository.deleteAll();
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Teacher> deleteTeacher(@PathVariable("id") long id){
         Teacher teacher = teacherRepository.findById(id);
@@ -61,6 +55,13 @@ public class TeacherController {
         }
         teacherRepository.delete(teacher);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Teacher> updateTeacher(@PathVariable("id") long id, @RequestBody Teacher teacher){
+        teacher.setId(id);
+        teacherRepository.save(teacher);
+        return new ResponseEntity<>(teacher, HttpStatus.OK);
     }
 
 }
