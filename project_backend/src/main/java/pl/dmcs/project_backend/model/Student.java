@@ -33,4 +33,12 @@ public class Student extends Person{
     public void setGrades(Set<Grade> grades) {
         this.grades = grades;
     }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 }

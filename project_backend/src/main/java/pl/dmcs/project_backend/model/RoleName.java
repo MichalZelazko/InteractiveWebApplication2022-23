@@ -1,6 +1,7 @@
 package pl.dmcs.project_backend.model;
 
 public enum RoleName {
-    ROLE_USER,
+    ROLE_STUDENT,
+    ROLE_TEACHER,
     ROLE_ADMIN
 }

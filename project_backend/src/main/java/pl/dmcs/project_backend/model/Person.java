@@ -1,8 +1,6 @@
 package pl.dmcs.project_backend.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.OneToOne;
 
 @MappedSuperclass
 public class Person {

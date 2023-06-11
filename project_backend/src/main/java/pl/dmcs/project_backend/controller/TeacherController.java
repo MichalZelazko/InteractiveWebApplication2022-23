@@ -52,4 +52,15 @@ public class TeacherController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Teacher> deleteTeacher(@PathVariable("id") long id){
+        Teacher teacher = teacherRepository.findById(id);
+        if (teacher == null){
+            System.out.println("Teacher with id " + id + " not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        teacherRepository.delete(teacher);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

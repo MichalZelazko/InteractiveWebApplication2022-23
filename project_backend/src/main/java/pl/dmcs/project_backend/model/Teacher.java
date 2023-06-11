@@ -33,4 +33,12 @@ public class Teacher extends Person{
     public void setSubjects(Set<Subject> subjects) {
         this.subjects = subjects;
     }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 }

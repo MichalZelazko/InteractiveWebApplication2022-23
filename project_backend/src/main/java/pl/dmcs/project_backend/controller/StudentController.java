@@ -19,7 +19,6 @@ public class StudentController {
 
     private StudentRepository studentRepository;
     private GradeRepository gradeRepository;
-    private AccountRepository accountRepository;
 
     @Autowired
     public StudentController(StudentRepository studentRepository, GradeRepository gradeRepository) {

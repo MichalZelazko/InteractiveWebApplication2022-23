@@ -1,6 +1,7 @@
 package pl.dmcs.project_backend.controller;
 
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import pl.dmcs.project_backend.event.AccountCreatedEvent;
 import pl.dmcs.project_backend.message.request.LoginForm;
 import pl.dmcs.project_backend.message.request.SignUpForm;
 import pl.dmcs.project_backend.message.response.JwtResponse;
@@ -38,14 +40,16 @@ public class AuthController {
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
     private JwtProvider jwtProvider;
+    private ApplicationEventPublisher eventPublisher;
 
     @Autowired
-    public AuthController(DaoAuthenticationProvider daoAuthenticationProvider, AccountRepository accountRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider) {
+    public AuthController(DaoAuthenticationProvider daoAuthenticationProvider, AccountRepository accountRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider, ApplicationEventPublisher eventPublisher) {
         this.daoAuthenticationProvider = daoAuthenticationProvider;
         this.accountRepository = accountRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtProvider = jwtProvider;
+        this.eventPublisher = eventPublisher;
     }
 
     @PostMapping("/signin")
@@ -74,14 +78,23 @@ public class AuthController {
                             .orElseThrow(() -> new RuntimeException("Fail -> Cause: Admin Role not found."));
                     roles.add(adminRole);
                     break;
+                case "teacher":
+                    Role teacherRole = roleRepository.findByName(RoleName.ROLE_TEACHER)
+                            .orElseThrow(() -> new RuntimeException("Fail -> Cause: Teacher Role not found."));
+                    roles.add(teacherRole);
+                    break;
                 default:
-                    Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+                    Role studentRole = roleRepository.findByName(RoleName.ROLE_STUDENT)
                             .orElseThrow(() -> new RuntimeException("Fail -> Cause: User Role not found."));
-                    roles.add(userRole);
+                    roles.add(studentRole);
             }
         });
         user.setRoles(roles);
         accountRepository.save(user);
+
+        if (!user.getRoles().contains(RoleName.ROLE_ADMIN)){
+            eventPublisher.publishEvent(new AccountCreatedEvent(user));
+        }
 
         return new ResponseEntity<>(new ResponseMessage("User registered successfully."), HttpStatus.OK);
     }
