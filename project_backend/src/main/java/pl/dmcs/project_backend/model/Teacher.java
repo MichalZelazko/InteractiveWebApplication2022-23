@@ -15,7 +15,7 @@ public class Teacher extends Person{
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @OneToMany(mappedBy ="teacher", cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST)
     private Set<Subject> subjects;
 
     public long getId() {

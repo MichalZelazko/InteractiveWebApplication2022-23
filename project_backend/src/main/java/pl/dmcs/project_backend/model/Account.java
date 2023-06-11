@@ -3,6 +3,7 @@ package pl.dmcs.project_backend.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,11 +16,11 @@ public class Account {
     private long id;
 
     @NotBlank
-    @Size(min = 3, max = 20)
+    @Length(min = 3, max = 50)
     private String username;
 
     @NotBlank
-    @Size(min = 6, max = 20)
+    @Length(min = 6, max = 100)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -28,7 +29,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(@NotBlank @Size(min = 3, max = 20) String username, @NotBlank @Size(min = 6, max = 20) String password) {
+    public Account(@NotBlank @Length(min = 3, max = 50) String username, @NotBlank @Length(min = 6, max = 100) String password) {
         this.username = username;
         this.password = password;
     }
