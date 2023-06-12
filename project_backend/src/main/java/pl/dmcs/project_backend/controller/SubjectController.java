@@ -35,6 +35,11 @@ public class SubjectController {
         return new ResponseEntity<Subject>(subject, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/teacher")
+    public List<Subject> findSubjectsByTeacher(@RequestParam("teacherId") long teacherId){
+        return (List<Subject>) subjectRepository.findByTeacherId(teacherId);
+    }
+
     @PostMapping
     public ResponseEntity<Subject> addSubject(@RequestBody Subject subject){
         subjectRepository.save(subject);

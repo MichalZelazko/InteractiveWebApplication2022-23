@@ -7,4 +7,5 @@ import pl.dmcs.project_backend.model.Subject;
 @Repository
 public interface SubjectRepository extends JpaRepository<Subject, Long> {
     Subject findById(long id);
+    Subject findByTeacherId(long teacherId);
 }

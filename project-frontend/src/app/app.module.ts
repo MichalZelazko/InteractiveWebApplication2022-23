@@ -15,6 +15,7 @@ import { TeacherComponent } from './teacher/teacher.component';
 import { GradeComponent } from './grade/grade.component';
 import { SubjectComponent } from './subject/subject.component';
 import { AdminComponent } from './admin/admin.component';
+import { GradebookComponent } from './gradebook/gradebook.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -36,7 +37,8 @@ const routes: Routes = [
     TeacherComponent,
     GradeComponent,
     SubjectComponent,
-    AdminComponent
+    AdminComponent,
+    GradebookComponent
   ],
   imports: [
     BrowserModule,
