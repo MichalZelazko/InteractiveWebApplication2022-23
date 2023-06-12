@@ -24,6 +24,7 @@ import pl.dmcs.project_backend.message.request.SignUpForm;
 import pl.dmcs.project_backend.message.response.JwtResponse;
 import pl.dmcs.project_backend.message.response.ResponseMessage;
 import pl.dmcs.project_backend.model.Account;
+import pl.dmcs.project_backend.model.Person;
 import pl.dmcs.project_backend.model.Role;
 import pl.dmcs.project_backend.model.RoleName;
 import pl.dmcs.project_backend.repository.AccountRepository;
@@ -71,6 +72,7 @@ public class AuthController {
         }
         // Create user account
         Account user = new Account(signUpRequest.getUsername(), passwordEncoder.encode(signUpRequest.getPassword()));
+        Person person = new Person(signUpRequest.getName(), signUpRequest.getSurname());
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
         strRoles.forEach(role -> {
@@ -97,7 +99,7 @@ public class AuthController {
         accountRepository.save(user);
 
         if (!user.getRoles().contains(RoleName.ROLE_ADMIN)){
-            eventPublisher.publishEvent(new AccountCreatedEvent(user));
+            eventPublisher.publishEvent(new AccountCreatedEvent(user, person));
         }
 
         return new ResponseEntity<>(new ResponseMessage("User registered successfully."), HttpStatus.OK);

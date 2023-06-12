@@ -29,15 +29,20 @@ public class AccountCreatedEventListener implements ApplicationListener<AccountC
     public void onApplicationEvent(AccountCreatedEvent event) {
 
         Account user = event.getUser();
+        Person person = event.getPerson();
         System.out.println(user.getUsername());
         Set<Role> roles = user.getRoles();
         for (Role role : roles) {
             if (role.getName().equals(RoleName.ROLE_STUDENT)) {
                 Student student = new Student();
+                student.setName(person.getName());
+                student.setSurname(person.getSurname());
                 student.setAccount(user);
                 studentRepository.save(student);
             } else if (role.getName().equals(RoleName.ROLE_TEACHER)) {
                 Teacher teacher = new Teacher();
+                teacher.setName(person.getName());
+                teacher.setSurname(person.getSurname());
                 teacher.setAccount(user);
                 teacherRepository.save(teacher);
             }
