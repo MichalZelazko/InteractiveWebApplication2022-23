@@ -19,6 +19,9 @@
           <a class="nav-link" routerLink="subjects">Subjects</a>
         </li>
         <li *ngIf="authority === 'admin'">
+          <a class="nav-link" routerLink="admin">Manage accounts</a>
+        </li>
+        <li *ngIf="authority === 'admin'">
           <a class="nav-link" routerLink="auth/signup">Add accounts</a>
         </li>
         <li *ngIf="!authority">

@@ -14,6 +14,7 @@ import { StudentComponent } from './student/student.component';
 import { TeacherComponent } from './teacher/teacher.component';
 import { GradeComponent } from './grade/grade.component';
 import { SubjectComponent } from './subject/subject.component';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'subjects', component: SubjectComponent, canActivate: [authGuard], data: { roles: ['ROLE_ADMIN', "ROLE_TEACHER"] },},
   { path: 'auth/signin', component: LoginComponent },
   { path: 'auth/signup', component: RegisterComponent, canActivate: [authGuard], data: { roles: ['ROLE_ADMIN'] },},
+  { path: 'admin', component: AdminComponent, canActivate: [authGuard], data: { roles: ['ROLE_ADMIN'] },},
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
@@ -33,7 +35,8 @@ const routes: Routes = [
     StudentComponent,
     TeacherComponent,
     GradeComponent,
-    SubjectComponent
+    SubjectComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

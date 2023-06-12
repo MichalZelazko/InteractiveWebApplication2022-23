@@ -1,0 +1,27 @@
+<div class="flex flex-col items-center justify-center py-2">
+  <h2 class="text-xl text-center uppercase font-bold">Manage accounts</h2>
+  <div class="container">
+    <h4 class="font-semibold text-lg uppercase">Student accounts</h4>
+    <ul>
+      <li *ngFor="let student of studentList">
+        <div class="row flex flex-row items-center my-2">
+          <span class="w-auto p-3 bg-gray-300 text-gray-900 text-3xl text-bold flex items-center justify-center mr-5">ID: {{student.id}}</span>
+          <p class="text-xl font-semibold">{{student.name}} {{student.surname}}</p>
+          <button class="w-[200px] ml-5 text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-gray-900 hover:bg-gray-950 focus:ring-primary-800" (click)="deleteStudent(student)">Delete</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="container mt-5">
+    <h4 class="font-semibold text-lg uppercase">Teacher accounts</h4>
+    <ul>
+      <li *ngFor="let teacher of teacherList">
+        <div class="row flex flex-row items-center my-2">
+          <span class="w-auto p-3 bg-gray-300 text-gray-900 text-3xl text-bold flex items-center justify-center mr-5">ID: {{teacher.id}}</span>
+          <p class="text-xl font-semibold">{{teacher.name}} {{teacher.surname}}</p>
+          <button class="w-[200px] ml-5 text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-gray-900 hover:bg-gray-950 focus:ring-primary-800" (click)="deleteTeacher(teacher)">Delete</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

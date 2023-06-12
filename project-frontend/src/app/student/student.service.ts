@@ -27,6 +27,15 @@ export class StudentService {
       catchError(this.handleError<Student>(`getStudent id=${id}`)));
   }
 
+  deleteStudent(student: Student | number): Observable<Student> {
+    const id = typeof student === 'number' ? student : student.id;
+    const url = `${this.studentsUrl}/${id}`;
+    return this.http.delete<Student>(url, httpOptions).pipe(
+      tap(_ => this.log(`deleted student id=${id}`)),
+      catchError(this.handleError<Student>('deleteStudent'))
+    );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error); // log to console instead
