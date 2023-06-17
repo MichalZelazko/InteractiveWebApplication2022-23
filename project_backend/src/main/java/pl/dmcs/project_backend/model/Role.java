@@ -8,23 +8,24 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Enumerated(EnumType.STRING)
     @NaturalId
     private RoleName name;
 
-    public Role() {}
+    public Role() {
+    }
 
     public Role(RoleName name) {
         this.name = name;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -36,4 +37,3 @@ public class Role {
         this.name = name;
     }
 }
-

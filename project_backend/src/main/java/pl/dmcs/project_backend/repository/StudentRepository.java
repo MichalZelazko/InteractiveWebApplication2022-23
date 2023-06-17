@@ -7,5 +7,5 @@ import pl.dmcs.project_backend.model.Student;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
     Student findById(long id);
-
+    Student findByAccountUsername(String username);
 }

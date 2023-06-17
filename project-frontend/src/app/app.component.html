@@ -1,0 +1,49 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+  <nav>
+    <div class="max-w-screen flex flex-wrap items-center px-4 py-2 border-b-2 border-b-gray-950">
+      <ul class="flex-1 flex justify-around p-4 flex-row font-medium">
+        <li>
+          <a class="nav-link" routerLink="/">Home</a>
+        </li>
+        <li *ngIf="authority === 'student'">
+          <a class="nav-link" routerLink="gradebook">Gradebook</a>
+        </li>
+        <li *ngIf="authority === 'teacher'">
+          <a class="nav-link" routerLink="subjects">Subjects</a>
+        </li>
+        <li *ngIf="authority === 'admin'">
+          <a class="nav-link" routerLink="admin">Manage accounts</a>
+        </li>
+        <li *ngIf="authority === 'admin'">
+          <a class="nav-link" routerLink="auth/signup">Add accounts</a>
+        </li>
+        <li *ngIf="!authority">
+          <a class="nav-link" routerLink="auth/signin">Login</a>
+        </li>
+        <li *ngIf="authority">
+          <a class="nav-link cursor-pointer" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+<!-- main content container -->
+  <div class="container mx-auto pt-5" >
+      <router-outlet></router-outlet>
+  </div>
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+

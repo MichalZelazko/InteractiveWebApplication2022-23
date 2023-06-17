@@ -8,7 +8,7 @@ import javax.validation.constraints.Min;
 @Entity
 public class Grade {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Min(2)
@@ -18,7 +18,7 @@ public class Grade {
     @ManyToOne
     private Student student;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Subject subject;
 
     public long getId() {

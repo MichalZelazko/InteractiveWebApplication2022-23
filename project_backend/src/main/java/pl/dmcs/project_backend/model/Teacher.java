@@ -1,43 +1,47 @@
 package pl.dmcs.project_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class Teacher extends Person{
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private long id;
-        private String academicDegree;
 
-        @OneToMany(mappedBy = "teacher")
-        private Set<Subject> subjects;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id")
+    private Account account;
 
+    @OneToMany(mappedBy="teacher", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Subject> subjects;
 
-        public long getId() {
-                return id;
-        }
+    public long getId() {
+        return id;
+    }
 
-        public void setId(long id) {
-                this.id = id;
-        }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-        public Set<Subject> getSubjects() {
-                return subjects;
-        }
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
 
-        public void setSubjects(Set<Subject> subjects) {
-                this.subjects = subjects;
-        }
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
+    }
 
-        public String getAcademicDegree() {
-                return academicDegree;
-        }
+    public Account getAccount() {
+        return account;
+    }
 
-        public void setAcademicDegree(String academicDegree) {
-                this.academicDegree = academicDegree;
-        }
-
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 }

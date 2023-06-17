@@ -4,31 +4,32 @@ import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class Person {
-    private String firstName;
-    private String lastName;
-    private String pesel;
 
-    public String getFirstName() {
-        return firstName;
+    private String name;
+    private String surname;
+
+    public Person() {
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public Person(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getName() {
+        return name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getPesel() {
-        return pesel;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setPesel(String pesel) {
-        this.pesel = pesel;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
+
 }

@@ -6,20 +6,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.dmcs.project_backend.model.User;
-import pl.dmcs.project_backend.repository.UserRepository;
+import pl.dmcs.project_backend.model.Account;
+import pl.dmcs.project_backend.repository.AccountRepository;
 
 @Service
 public class UserDetailsServiceImpl  implements UserDetailsService {
 
     @Autowired
-    UserRepository userRepository;
+    AccountRepository accountRepository;
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userRepository.findByUsername(username).orElseThrow(
+        Account user = accountRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException("User Not Found with -> username: " + username));
         return UserPrinciple.build(user);
     }
