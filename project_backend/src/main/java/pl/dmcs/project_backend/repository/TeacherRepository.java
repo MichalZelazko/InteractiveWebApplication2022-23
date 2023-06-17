@@ -7,4 +7,5 @@ import pl.dmcs.project_backend.model.Teacher;
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     Teacher findById(long id);
+    Teacher findByAccountUsername(String username);
 }

@@ -7,4 +7,5 @@ import pl.dmcs.project_backend.model.Grade;
 @Repository
 public interface GradeRepository extends JpaRepository<Grade, Long> {
     Grade findById(long id);
+    Grade findByStudentId(long id);
 }

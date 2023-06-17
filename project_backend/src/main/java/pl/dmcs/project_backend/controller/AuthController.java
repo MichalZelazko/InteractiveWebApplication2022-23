@@ -18,17 +18,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import pl.dmcs.project_backend.event.AccountCreatedEvent;
 import pl.dmcs.project_backend.message.request.LoginForm;
 import pl.dmcs.project_backend.message.request.SignUpForm;
 import pl.dmcs.project_backend.message.response.JwtResponse;
 import pl.dmcs.project_backend.message.response.ResponseMessage;
-import pl.dmcs.project_backend.model.Account;
-import pl.dmcs.project_backend.model.Person;
-import pl.dmcs.project_backend.model.Role;
-import pl.dmcs.project_backend.model.RoleName;
-import pl.dmcs.project_backend.repository.AccountRepository;
-import pl.dmcs.project_backend.repository.RoleRepository;
+import pl.dmcs.project_backend.model.*;
+import pl.dmcs.project_backend.repository.*;
 import pl.dmcs.project_backend.security.jwt.JwtProvider;
 
 import java.util.HashSet;
@@ -40,15 +35,19 @@ import java.util.Set;
 public class AuthController {
     private DaoAuthenticationProvider daoAuthenticationProvider;
     private AccountRepository accountRepository;
+    private StudentRepository studentRepository;
+    private TeacherRepository teacherRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
     private JwtProvider jwtProvider;
     private ApplicationEventPublisher eventPublisher;
 
     @Autowired
-    public AuthController(DaoAuthenticationProvider daoAuthenticationProvider, AccountRepository accountRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider, ApplicationEventPublisher eventPublisher) {
+    public AuthController(DaoAuthenticationProvider daoAuthenticationProvider, AccountRepository accountRepository, StudentRepository studentRepository, TeacherRepository teacherRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider, ApplicationEventPublisher eventPublisher) {
         this.daoAuthenticationProvider = daoAuthenticationProvider;
         this.accountRepository = accountRepository;
+        this.studentRepository = studentRepository;
+        this.teacherRepository = teacherRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtProvider = jwtProvider;
@@ -97,9 +96,21 @@ public class AuthController {
         });
         user.setRoles(roles);
         accountRepository.save(user);
-
-        if (!user.getRoles().contains(RoleName.ROLE_ADMIN)){
-            eventPublisher.publishEvent(new AccountCreatedEvent(user, person));
+        Set<Role> accountRoles = user.getRoles();
+        for (Role role : accountRoles) {
+            if (role.getName().equals(RoleName.ROLE_STUDENT)) {
+                Student student = new Student();
+                student.setName(person.getName());
+                student.setSurname(person.getSurname());
+                student.setAccount(user);
+                studentRepository.save(student);
+            } else if (role.getName().equals(RoleName.ROLE_TEACHER)) {
+                Teacher teacher = new Teacher();
+                teacher.setName(person.getName());
+                teacher.setSurname(person.getSurname());
+                teacher.setAccount(user);
+                teacherRepository.save(teacher);
+            }
         }
 
         return new ResponseEntity<>(new ResponseMessage("User registered successfully."), HttpStatus.OK);
