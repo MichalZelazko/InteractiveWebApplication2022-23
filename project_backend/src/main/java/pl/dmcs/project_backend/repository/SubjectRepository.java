@@ -8,4 +8,5 @@ import pl.dmcs.project_backend.model.Subject;
 public interface SubjectRepository extends JpaRepository<Subject, Long> {
     Subject findById(long id);
     Subject findByTeacherId(long teacherId);
+    boolean existsByName(String name);
 }

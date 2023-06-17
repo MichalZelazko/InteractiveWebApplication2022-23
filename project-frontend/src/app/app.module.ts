@@ -16,6 +16,7 @@ import { GradeComponent } from './grade/grade.component';
 import { SubjectComponent } from './subject/subject.component';
 import { AdminComponent } from './admin/admin.component';
 import { GradebookComponent } from './gradebook/gradebook.component';
+import { GrademanagerComponent } from './grademanager/grademanager.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'auth/signin', component: LoginComponent },
   { path: 'auth/signup', component: RegisterComponent, canActivate: [authGuard], data: { roles: ['ROLE_ADMIN'] },},
   { path: 'admin', component: AdminComponent, canActivate: [authGuard], data: { roles: ['ROLE_ADMIN'] },},
+  { path: 'subjects/:id', component: GrademanagerComponent, canActivate: [authGuard], data: { roles: ['ROLE_ADMIN', "ROLE_TEACHER"] },},
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
@@ -38,7 +40,8 @@ const routes: Routes = [
     GradeComponent,
     SubjectComponent,
     AdminComponent,
-    GradebookComponent
+    GradebookComponent,
+    GrademanagerComponent
   ],
   imports: [
     BrowserModule,

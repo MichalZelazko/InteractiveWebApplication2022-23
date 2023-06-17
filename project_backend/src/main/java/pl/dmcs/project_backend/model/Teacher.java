@@ -1,8 +1,10 @@
 package pl.dmcs.project_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class Teacher extends Person{
@@ -15,8 +17,9 @@ public class Teacher extends Person{
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private Set<Subject> subjects;
+    @OneToMany(mappedBy="teacher", cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    private List<Subject> subjects;
 
     public long getId() {
         return id;
@@ -26,11 +29,11 @@ public class Teacher extends Person{
         this.id = id;
     }
 
-    public Set<Subject> getSubjects() {
+    public List<Subject> getSubjects() {
         return subjects;
     }
 
-    public void setSubjects(Set<Subject> subjects) {
+    public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
     }
 

@@ -115,4 +115,10 @@ public class AuthController {
 
         return new ResponseEntity<>(new ResponseMessage("User registered successfully."), HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteAccount(@PathVariable Long id) {
+        accountRepository.deleteById(id);
+        return new ResponseEntity<>(new ResponseMessage("Account deleted successfully."), HttpStatus.OK);
+    }
 }

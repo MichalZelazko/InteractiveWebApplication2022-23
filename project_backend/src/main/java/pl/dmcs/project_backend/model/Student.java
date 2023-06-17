@@ -2,7 +2,7 @@ package pl.dmcs.project_backend.model;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class Student extends Person{
@@ -16,7 +16,7 @@ public class Student extends Person{
     private Account account;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<Grade> grades;
+    private List<Grade> grades;
 
     public long getId() {
         return id;
@@ -26,11 +26,11 @@ public class Student extends Person{
         this.id = id;
     }
 
-    public Set<Grade> getGrades() {
+    public List<Grade> getGrades() {
         return grades;
     }
 
-    public void setGrades(Set<Grade> grades) {
+    public void setGrades(List<Grade> grades) {
         this.grades = grades;
     }
 

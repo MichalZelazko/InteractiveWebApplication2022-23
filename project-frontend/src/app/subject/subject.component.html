@@ -1,1 +1,33 @@
-<p>subject works!</p>
+<div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
+  <div class="w-full bg-gray-200 rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 ">
+    <form class="space-y-4 md:space-y-6 p-5" name="form" (ngSubmit)="f.form.valid && addSubject()" #f="ngForm" novalidate>
+      <div class="form-group">
+        <label for="username" id="username" class="block mb-2 text-sm font-medium text-gray-900">Name</label>
+        <input type="text" class="form-control bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" name="name" [(ngModel)]="form.name" #name="ngModel"
+               required />
+        <div *ngIf="f.submitted && name.invalid">
+          <div class="mt-2 text-sm font-light text-gray-500" *ngIf="['username.errors?.required']">Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="w-full text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-gray-900 hover:bg-gray-950 focus:ring-primary-800">Add subject</button>
+        <div *ngIf="f.submitted && isAddFailed" class="mt-2 text-sm font-light text-gray-500" >
+          Subject addition failed: {{errorMessage}}
+        </div>
+      </div>
+    </form>
+    <hr />
+  </div>
+</div>
+
+<div class="px-6 py-8">
+  <h2 class="text-4xl font-semibold text-gray-950 uppercase mb-5">Your subjects:</h2>
+  <div *ngIf="subjectList?.length == 0" class="text-2xl font-semibold text-gray-950 uppercase mb-5">You have no subjects yet</div>
+  <ul class="grid grid-cols-4 gap-3">
+    <li *ngFor="let subject of subjectList">
+      <a class="text-center flex items-center justify-center w-full h-full" [routerLink]="['/subjects/',subject.id]">
+        <h2 class="bg-gray-200 text-3xl px-3 py-5 font-semibold rounded w-full h-full flex items-center justify-center">{{subject.name}}</h2>
+      </a>
+    </li>
+  </ul>
+</div>

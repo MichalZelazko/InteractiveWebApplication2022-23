@@ -4,10 +4,9 @@ export class Subject {
 
   id?: number;
   name: string;
-  teacher: Teacher;
+  teacher: Teacher | undefined;
 
-  constructor(name: string, teacher: Teacher) {
+  constructor(name: string) {
     this.name = name;
-    this.teacher = teacher;
   }
 }

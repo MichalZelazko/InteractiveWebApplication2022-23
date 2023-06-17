@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pl.dmcs.project_backend.message.response.ResponseMessage;
 import pl.dmcs.project_backend.model.Account;
 import pl.dmcs.project_backend.model.Subject;
 import pl.dmcs.project_backend.model.Teacher;
@@ -49,7 +50,7 @@ public class SubjectController {
 
     @GetMapping(value = "/teacher")
     @PreAuthorize("hasRole('ROLE_TEACHER')")
-    public Set<Subject> findSubjectsByTeacher(@RequestParam("teacherId") long teacherId, HttpServletRequest request){
+    public List<Subject> findSubjectsByTeacher(HttpServletRequest request){
         Principal principal = request.getUserPrincipal();
         Account account = accountRepository.findByUsername(principal.getName()).orElseThrow(() -> new RuntimeException("Error: User is not logged in or not found!"));
         Teacher teacher = teacherRepository.findByAccountUsername(account.getUsername());
@@ -57,7 +58,17 @@ public class SubjectController {
     }
 
     @PostMapping
-    public ResponseEntity<Subject> addSubject(@RequestBody Subject subject){
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    public ResponseEntity<?> addSubject(@RequestBody Subject subject, HttpServletRequest request){
+        if(subjectRepository.existsByName(subject.getName())){
+            return new ResponseEntity<>(new ResponseMessage("Fail -> This subject already exists"), HttpStatus.BAD_REQUEST);
+        }
+        Principal principal = request.getUserPrincipal();
+        Account account = accountRepository.findByUsername(principal.getName()).orElseThrow(() -> new RuntimeException("Error: User is not logged in or not found!"));
+        System.out.println(account.getUsername());
+        System.out.println(subject);
+        Teacher teacher = teacherRepository.findByAccountUsername(account.getUsername());
+        subject.setTeacher(teacher);
         subjectRepository.save(subject);
         return new ResponseEntity<Subject>(subject, HttpStatus.CREATED);
     }

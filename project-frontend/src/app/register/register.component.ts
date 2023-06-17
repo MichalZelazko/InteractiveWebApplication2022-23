@@ -32,6 +32,8 @@ export class RegisterComponent implements OnInit {
         console.log(data);
         this.isSignedUp = true;
         this.isSignUpFailed = false;
+        alert('User registered successfully!');
+        this.reloadPage();
       },
       error => {
         console.log(error);
@@ -39,5 +41,9 @@ export class RegisterComponent implements OnInit {
         this.isSignUpFailed = true;
       }
     );
+  }
+
+  reloadPage(): void {
+    window.location.reload();
   }
 }

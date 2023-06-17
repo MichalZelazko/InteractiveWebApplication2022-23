@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
         //     this.isLoginFailed = true;
         //   }
         // );
-        this.reloadPage();
+        this.redirectToHomePage()
       },
       error => {
         console.log(error);
@@ -64,8 +64,8 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  reloadPage() {
-    window.location.reload();
+  redirectToHomePage() {
+    window.location.href = '/home';
   }
 
   // checkAndPromptDetails() {
