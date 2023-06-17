@@ -69,4 +69,17 @@ public class GradeController {
         gradeRepository.save(grade);
         return new ResponseEntity<Grade>(grade, HttpStatus.CREATED);
     }
+
+    @PatchMapping(value = "/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    public ResponseEntity<Grade> editGrade(@PathVariable("id") long id, @RequestBody int grade){
+        Grade currentGrade = gradeRepository.findById(id);
+        if (currentGrade == null){
+            System.out.println("Grade with id " + id + " not found");
+            return new ResponseEntity<Grade>(HttpStatus.NOT_FOUND);
+        }
+        currentGrade.setGrade(grade);
+        gradeRepository.save(currentGrade);
+        return new ResponseEntity<Grade>(currentGrade, HttpStatus.OK);
+    }
 }

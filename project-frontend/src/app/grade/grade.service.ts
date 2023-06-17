@@ -39,6 +39,12 @@ export class GradeService {
     );
   }
 
+  editGrade(grade: Grade): Observable<Grade> {
+    return this.http.patch<Grade>(`${this.gradesUrl}/edit/${grade.id}`, grade.grade, httpOptions).pipe(
+      catchError(this.handleError<Grade>('editGrade'))
+    );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error); // log to console instead

@@ -29,6 +29,9 @@ export class GrademanagerComponent implements OnInit {
 
   subjectId?: number;
 
+  selectedGrade: Grade | null = null;
+  selectedGradeValue: number | null = null;
+
 
   constructor(private studentService: StudentService, private gradeService: GradeService, private subjectService: SubjectService, private route: ActivatedRoute) {}
 
@@ -69,6 +72,35 @@ export class GrademanagerComponent implements OnInit {
         }
       );
     }
+  }
+
+  editGrade(grade: Grade): void {
+    this.selectedGrade = grade;
+    this.selectedGradeValue = grade.grade;
+  }
+
+  cancelEdit(): void {
+    this.selectedGrade = null;
+    this.selectedGradeValue = null;
+  }
+
+  saveEdit(): void {
+    if (this.selectedGrade && this.selectedGradeValue) {
+        this.selectedGrade.grade = this.selectedGradeValue;
+        this.gradeService.editGrade(this.selectedGrade).subscribe(
+        data => {
+          console.log(data);
+          alert('Grade updated successfully!');
+          this.reloadPage();
+        },
+        error => {
+          console.log(error);
+          this.errorMessage = error.error.message;
+        }
+      );
+    }
+    this.selectedGrade = null;
+    this.selectedGradeValue = null;
   }
 
   reloadPage(): void {

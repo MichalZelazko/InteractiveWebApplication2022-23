@@ -17,7 +17,7 @@ public class Teacher extends Person{
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @OneToMany(mappedBy="teacher", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy="teacher", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Subject> subjects;
 

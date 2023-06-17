@@ -6,7 +6,7 @@
   <div class="container w-1/2 mx-auto my-5">
     <form class="space-y-4 md:space-y-6 p-5" (ngSubmit)="f.form.valid && addGrade()" #f="ngForm" novalidate>
       <div class="form-group">
-        <label for="grade" class="block mb-2 text-sm font-medium text-gray-900">Grade</label>
+        <label for="grade" class="block mb-2 text-2xl font-medium text-gray-900">Grade</label>
         <select id="grade" name="grade" [(ngModel)]="form.grade" #grade="ngModel" required
                 class="form-control bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
           <option [value]="2">2</option>
@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="student" class="block mb-2 text-sm font-medium text-gray-900">Student</label>
+        <label for="student" class="block mb-2 text-2xl font-medium text-gray-900">Student</label>
         <select id="student" name="student" [(ngModel)]="form.student" #student="ngModel" required
                 class="form-control bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
           <option *ngFor="let student of studentList" [value]="student.id">{{ student.name }} {{ student.surname }}</option>
@@ -44,12 +44,24 @@
       </tr>
       </thead>
       <tbody>
-        <tr class="h-[65px]" *ngFor="let student of studentList">
-          <td class="border p-3 text-xl">{{ student.name }}</td>
-          <td class="border p-3 text-xl">{{ student.surname }}</td>
-          <td class="border p-3 text-xl">
+        <tr class="h-[85px]" *ngFor="let student of studentList">
+          <td class="border p-3 text-2xl">{{ student.name }}</td>
+          <td class="border p-3 text-2xl">{{ student.surname }}</td>
+          <td class="border p-3 text-2xl">
             <ul class="inline-block" *ngFor="let grade of gradeList">
-              <li class="mr-1 flex items-center justify-center h-[40px] w-[40px] bg-gray-900 text-white" *ngIf="grade.student.id === student.id">{{ grade.grade }}</li>
+              <li class="mr-1 flex items-center justify-center h-[60px] w-[60px] bg-gray-900 text-white" *ngIf="grade.student.id === student.id" (dblclick)="editGrade(grade)">
+                <ng-container *ngIf="selectedGrade !== grade; else editMode">
+                  {{ grade.grade }}
+                </ng-container>
+                <ng-template #editMode>
+                  <select [(ngModel)]="selectedGradeValue" (blur)="cancelEdit()" (keydown.enter)="saveEdit()" class="w-full h-full p-1 border-2 border-gray-950 text-center text-gray-950">
+                    <option [value]="2">2</option>
+                    <option [value]="3">3</option>
+                    <option [value]="4">4</option>
+                    <option [value]="5">5</option>
+                  </select>
+                </ng-template>
+              </li>
             </ul>
           </td>
         </tr>
