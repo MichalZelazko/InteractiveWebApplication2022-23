@@ -1,18 +1,57 @@
 <div class="container">
+  <div class="row w-full mt-5">
+      <h1 class="text-3xl uppercase font-bold text-gray-900 text-center">{{subject?.name}}</h1>
+  </div>
+
+  <div class="container w-1/2 mx-auto my-5">
+    <form class="space-y-4 md:space-y-6 p-5" (ngSubmit)="f.form.valid && addGrade()" #f="ngForm" novalidate>
+      <div class="form-group">
+        <label for="grade" class="block mb-2 text-sm font-medium text-gray-900">Grade</label>
+        <select id="grade" name="grade" [(ngModel)]="form.grade" #grade="ngModel" required
+                class="form-control bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+          <option [value]="2">2</option>
+          <option [value]="3">3</option>
+          <option [value]="4">4</option>
+          <option [value]="5">5</option>
+        </select>
+        <div *ngIf="f.submitted && grade.invalid">
+          <div class="mt-2 text-sm font-light text-gray-500" *ngIf="['grade.errors?.required']">Grade is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="student" class="block mb-2 text-sm font-medium text-gray-900">Student</label>
+        <select id="student" name="student" [(ngModel)]="form.student" #student="ngModel" required
+                class="form-control bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+          <option *ngFor="let student of studentList" [value]="student.id">{{ student.name }} {{ student.surname }}</option>
+        </select>
+        <div *ngIf="f.submitted && student.invalid">
+          <div class="mt-2 text-sm font-light text-gray-500" *ngIf="['student.errors?.required']">Student is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit"
+                class="w-full text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-gray-900 hover:bg-gray-950 focus:ring-primary-800">Add Grade</button>
+      </div>
+    </form>
+  </div>
   <div class="row w-full">
-    <table class="table-auto w-full">
-      <thead>
+    <table class="table-auto w-full border-collapse">
+      <thead class="bg-gray-900 text-white">
       <tr>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Grades</th>
+        <th class="border p-3 text-2xl uppercase font-semibold">Name</th>
+        <th class="border p-3 text-2xl uppercase font-semibold">Surname</th>
+        <th class="border p-3 text-2xl uppercase font-semibold">Grades</th>
       </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let student of studentList">
-          <td class="text-xl">{{ student.name }}</td>
-          <td class="text-xl">{{ student.surname }}</td>
-          <td class="text-xl">{{ student.grades }}</td>
+        <tr class="h-[65px]" *ngFor="let student of studentList">
+          <td class="border p-3 text-xl">{{ student.name }}</td>
+          <td class="border p-3 text-xl">{{ student.surname }}</td>
+          <td class="border p-3 text-xl">
+            <ul class="inline-block" *ngFor="let grade of gradeList">
+              <li class="mr-1 flex items-center justify-center h-[40px] w-[40px] bg-gray-900 text-white" *ngIf="grade.student.id === student.id">{{ grade.grade }}</li>
+            </ul>
+          </td>
         </tr>
       </tbody>
     </table>

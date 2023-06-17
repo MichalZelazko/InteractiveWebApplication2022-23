@@ -26,6 +26,7 @@ const routes: Routes = [
   { path: 'auth/signup', component: RegisterComponent, canActivate: [authGuard], data: { roles: ['ROLE_ADMIN'] },},
   { path: 'admin', component: AdminComponent, canActivate: [authGuard], data: { roles: ['ROLE_ADMIN'] },},
   { path: 'subjects/:id', component: GrademanagerComponent, canActivate: [authGuard], data: { roles: ['ROLE_ADMIN', "ROLE_TEACHER"] },},
+  { path: 'gradebook', component: GradebookComponent, canActivate: [authGuard], data: { roles: ['ROLE_ADMIN', "ROLE_STUDENT"] },},
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

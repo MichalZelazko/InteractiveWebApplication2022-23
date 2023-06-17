@@ -1,5 +1,6 @@
 package pl.dmcs.project_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,7 +16,8 @@ public class Student extends Person{
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Grade> grades;
 
     public long getId() {

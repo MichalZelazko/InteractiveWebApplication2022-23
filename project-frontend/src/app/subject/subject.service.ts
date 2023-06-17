@@ -14,6 +14,11 @@ export class SubjectService {
   private subjectsUrl = 'http://localhost:8080/subjects';
   constructor(private http: HttpClient) {}
 
+  getSubject(id: number): Observable<Subject> {
+    const url = `${this.subjectsUrl}/${id}`;
+    return this.http.get<Subject>(url);
+  }
+
   getTeachersSubjects(): Observable<Subject[]> {
     return this.http.get<Subject[]>(`${this.subjectsUrl}/teacher`);
   }
@@ -40,6 +45,6 @@ export class SubjectService {
 
   /** Log a StudentService message with the MessageService */
   private log(message: string) {
-    console.log('StudentService: ' + message);
+    console.log('SubjectService: ' + message);
   }
 }
