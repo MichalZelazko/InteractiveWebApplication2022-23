@@ -20,23 +20,28 @@ export class SubjectService {
   }
 
   getTeachersSubjects(): Observable<Subject[]> {
-    return this.http.get<Subject[]>(`${this.subjectsUrl}/teacher`);
+    return this.http.get<Subject[]>(`${this.subjectsUrl}/teacher`).pipe(
+      catchError(this.handleError<Subject[]>('getTeachersSubjects', 'Error while getting teachers subjects')),
+      );
   }
 
   getSubjects(): Observable<Subject[]> {
-    return this.http.get<Subject[]>(this.subjectsUrl);
+    return this.http.get<Subject[]>(this.subjectsUrl).pipe(
+      catchError(this.handleError<Subject[]>('getSubjects', 'Error while getting subjects')),
+    );
   }
 
 
   addSubject(subject: Subject): Observable<Subject> {
     return this.http.post<Subject>(this.subjectsUrl, subject, httpOptions).pipe(
-      catchError(this.handleError<Subject>('addSubject'))
+      catchError(this.handleError<Subject>('addSubject', 'Subject already exists!')),
     );
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
+  private handleError<T>(operation = 'operation', communicate: string, result?: T) {
     return (error: any): Observable<T> => {
       this.log(`${operation} failed: ${error.message}`);
+      alert(`${communicate}`);
       return of(result as T);
     };
   }

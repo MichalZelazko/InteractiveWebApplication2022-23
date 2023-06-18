@@ -10,8 +10,6 @@ import {httpInterceptorProviders} from "./auth/auth.interceptor";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {authGuard} from "./guards/auth.guard";
-import { StudentComponent } from './student/student.component';
-import { TeacherComponent } from './teacher/teacher.component';
 import { SubjectComponent } from './subject/subject.component';
 import { AdminComponent } from './admin/admin.component';
 import { GradebookComponent } from './gradebook/gradebook.component';
@@ -19,7 +17,6 @@ import { GrademanagerComponent } from './grademanager/grademanager.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'students', component: StudentComponent, canActivate: [authGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_STUDENT'] },},
   { path: 'subjects', component: SubjectComponent, canActivate: [authGuard], data: { roles: ['ROLE_ADMIN', "ROLE_TEACHER"] },},
   { path: 'auth/signin', component: LoginComponent },
   { path: 'auth/signup', component: RegisterComponent, canActivate: [authGuard], data: { roles: ['ROLE_ADMIN'] },},
@@ -35,8 +32,6 @@ const routes: Routes = [
     RegisterComponent,
     LoginComponent,
     HomeComponent,
-    StudentComponent,
-    TeacherComponent,
     SubjectComponent,
     AdminComponent,
     GradebookComponent,

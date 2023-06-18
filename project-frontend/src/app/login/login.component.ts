@@ -13,10 +13,8 @@ export class LoginComponent implements OnInit {
   token?: string;
   isLoggedIn = false;
   isLoginFailed = false;
-  errorMessage = '';
   roles: string[] = [];
   private loginInfo?: LoginInfo;
-  private accountType?: string;
 
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
 
@@ -42,23 +40,10 @@ export class LoginComponent implements OnInit {
         this.isLoggedIn = true;
         this.token = this.tokenStorage.getToken();
         this.roles = this.tokenStorage.getAuthorities();
-
-        // this.authService.getAccountType().subscribe(
-        //   type => {
-        //     this.accountType = type;
-        //     this.checkAndPromptDetails();
-        //   },
-        //   error => {
-        //     console.log(error);
-        //     this.errorMessage = error.error.message;
-        //     this.isLoginFailed = true;
-        //   }
-        // );
         this.redirectToHomePage()
       },
       error => {
         console.log(error);
-        this.errorMessage = error.error.message;
         this.isLoginFailed = true;
       }
     );
@@ -67,39 +52,5 @@ export class LoginComponent implements OnInit {
   redirectToHomePage() {
     window.location.href = '/home';
   }
-
-  // checkAndPromptDetails() {
-  //   if (this.accountType === 'teacher') {
-  //     this.authService.getTeacher().subscribe(
-  //       teacher => {
-  //         if (!teacher.name || !teacher.surname) {
-  //           // Prompt the user to fill out the name and surname
-  //           // You can display a dialog, a form, or any other user interface element
-  //         }
-  //       },
-  //       error => {
-  //         console.log(error);
-  //         this.errorMessage = error.error.message;
-  //         this.isLoginFailed = true;
-  //       }
-  //     );
-  //   } else if (this.accountType === 'student') {
-  //     this.authService.getStudent().subscribe(
-  //       student => {
-  //         if (!student.name || !student.surname) {
-  //           // Prompt the user to fill out the name and surname
-  //           // You can display a dialog, a form, or any other user interface element
-  //         }
-  //       },
-  //       error => {
-  //         console.log(error);
-  //         this.errorMessage = error.error.message;
-  //         this.isLoginFailed = true;
-  //       }
-  //     );
-  //   } else {
-  //     // Account type not recognized, handle accordingly
-  //   }
-  // }
 
 }

@@ -63,7 +63,6 @@ export class GrademanagerComponent implements OnInit {
       this.gradeService.addGrade(this.gradeToAdd).subscribe(
         data => {
           console.log(data);
-          alert('Grade added successfully!');
           this.reloadPage();
         },
         error => {
@@ -90,7 +89,6 @@ export class GrademanagerComponent implements OnInit {
         this.gradeService.editGrade(this.selectedGrade).subscribe(
         data => {
           console.log(data);
-          alert('Grade updated successfully!');
           this.reloadPage();
         },
         error => {

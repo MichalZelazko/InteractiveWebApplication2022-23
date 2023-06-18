@@ -17,28 +17,24 @@ export class StudentService {
   constructor(private http: HttpClient) { }
 
   getStudents(): Observable<Student[]> {
-    return this.http.get<Student[]>(this.studentsUrl);
+    return this.http.get<Student[]>(this.studentsUrl).pipe(
+      catchError(this.handleError<Student[]>('getStudents', 'Error while getting students'))
+    );
   }
-
-  // getStudent(id: number): Observable<Student> {
-  //   const url = `${this.studentsUrl}/${id}`;
-  //   return this.http.get<Student>(url).pipe(
-  //     tap(_ => this.log(`fetched student id=${id}`)),
-  //     catchError(this.handleError<Student>(`getStudent id=${id}`)));
-  // }
 
   deleteStudent(student: Student | number): Observable<Student> {
     const id = typeof student === 'number' ? student : student.id;
     const url = `${this.studentsUrl}/${id}`;
     return this.http.delete<Student>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted student id=${id}`)),
-      catchError(this.handleError<Student>('deleteStudent'))
+      catchError(this.handleError<Student>('deleteStudent', 'Error while deleting student'))
     );
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
+  private handleError<T>(operation = 'operation', communicate: string, result?: T) {
     return (error: any): Observable<T> => {
       this.log(`${operation} failed: ${error.message}`);
+      alert(`${communicate}`);
       return of(result as T);
     };
   }

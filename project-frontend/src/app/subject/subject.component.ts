@@ -32,7 +32,6 @@ export class SubjectComponent implements OnInit{
         this.isAddFailed = false;
         this.errorMessage = '';
         this.reloadPage();
-        alert('Subject added successfully!');
       },
       error => {
         console.log(error);

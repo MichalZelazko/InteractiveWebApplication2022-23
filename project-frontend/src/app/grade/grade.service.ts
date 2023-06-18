@@ -17,38 +17,36 @@ export class GradeService {
 
   addGrade(grade: Grade): Observable<Grade> {
     return this.http.post<Grade>(this.gradesUrl, grade, httpOptions).pipe(
-      catchError(this.handleError<Grade>('addGrade'))
+      catchError(this.handleError<Grade>('addGrade', 'Error while adding the grade!'))
     );
   }
 
   getGradesFromSubject(subjectId: number): Observable<Grade[]> {
     return this.http.get<Grade[]>(`${this.gradesUrl}/subject/${subjectId}`).pipe(
-      catchError(this.handleError<Grade[]>('getGradesFromSubject', []))
+      catchError(this.handleError<Grade[]>('getGradesFromSubject', 'Error while getting grades', []))
     );
   }
 
   getStudentGrades(): Observable<Grade[]> {
     return this.http.get<Grade[]>(`${this.gradesUrl}/student`).pipe(
-      catchError(this.handleError<Grade[]>('getStudentGrades', []))
+      catchError(this.handleError<Grade[]>('getStudentGrades', 'Error while getting grades!',[]))
     );
   }
 
   editGrade(grade: Grade): Observable<Grade> {
     return this.http.patch<Grade>(`${this.gradesUrl}/edit/${grade.id}`, grade.grade, httpOptions).pipe(
-      catchError(this.handleError<Grade>('editGrade'))
+      catchError(this.handleError<Grade>('editGrade', 'Editing grade failed!'))
     );
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
+  private handleError<T>(operation = 'operation', communicate: string, result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error); // log to console instead
       this.log(`${operation} failed: ${error.message}`);
-      // Let the app keep running by returning an empty result.
+      alert(`${communicate}`);
       return of(result as T);
     };
   }
 
-  /** Log a StudentService message with the MessageService */
   private log(message: string) {
     console.log('GradeService: ' + message);
   }

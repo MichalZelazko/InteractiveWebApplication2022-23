@@ -9,7 +9,7 @@ import {TokenStorageService} from "../auth/token-storage.service";
 export class HomeComponent implements OnInit {
 
   info: any;
-  countdown: number = 5; // Set the initial countdown time in seconds
+  countdown: number = 10;
   countdownInterval: any;
 
   constructor(private token: TokenStorageService) { }
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    clearInterval(this.countdownInterval); // Clean up the interval when the component is destroyed
+    clearInterval(this.countdownInterval);
   }
 
   redirectToLogin(): void {
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
         clearInterval(this.countdownInterval);
         this.redirectToLogin();
       }
-    }, 1000); // Update the countdown every second (1000 milliseconds)
+    }, 1000);
   }
 
 }
