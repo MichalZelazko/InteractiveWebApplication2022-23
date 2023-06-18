@@ -20,12 +20,12 @@ export class StudentService {
     return this.http.get<Student[]>(this.studentsUrl);
   }
 
-  getStudent(id: number): Observable<Student> {
-    const url = `${this.studentsUrl}/${id}`;
-    return this.http.get<Student>(url).pipe(
-      tap(_ => this.log(`fetched student id=${id}`)),
-      catchError(this.handleError<Student>(`getStudent id=${id}`)));
-  }
+  // getStudent(id: number): Observable<Student> {
+  //   const url = `${this.studentsUrl}/${id}`;
+  //   return this.http.get<Student>(url).pipe(
+  //     tap(_ => this.log(`fetched student id=${id}`)),
+  //     catchError(this.handleError<Student>(`getStudent id=${id}`)));
+  // }
 
   deleteStudent(student: Student | number): Observable<Student> {
     const id = typeof student === 'number' ? student : student.id;
@@ -38,14 +38,11 @@ export class StudentService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error); // log to console instead
       this.log(`${operation} failed: ${error.message}`);
-      // Let the app keep running by returning an empty result.
       return of(result as T);
     };
   }
 
-  /** Log a StudentService message with the MessageService */
   private log(message: string) {
     console.log('StudentService: ' + message);
   }

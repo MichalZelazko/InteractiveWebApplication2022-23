@@ -30,8 +30,6 @@ export class AdminComponent implements OnInit{
       .subscribe(studentList => this.studentList = studentList);
   }
 
-    // TODO: add updating of list items length
-
   deleteTeacher(teacher: Teacher): void {
     this.teacherService.deleteTeacher(teacher).subscribe(
       () => this.getTeachers()

@@ -21,12 +21,6 @@ export class GradeService {
     );
   }
 
-  getGrades(): Observable<Grade[]> {
-    return this.http.get<Grade[]>(this.gradesUrl).pipe(
-      catchError(this.handleError<Grade[]>('getGrades', []))
-    );
-  }
-
   getGradesFromSubject(subjectId: number): Observable<Grade[]> {
     return this.http.get<Grade[]>(`${this.gradesUrl}/subject/${subjectId}`).pipe(
       catchError(this.handleError<Grade[]>('getGradesFromSubject', []))

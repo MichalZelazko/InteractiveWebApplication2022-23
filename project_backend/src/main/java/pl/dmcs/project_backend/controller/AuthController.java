@@ -1,9 +1,6 @@
 package pl.dmcs.project_backend.controller;
 
-
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,10 +37,9 @@ public class AuthController {
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
     private JwtProvider jwtProvider;
-    private ApplicationEventPublisher eventPublisher;
 
     @Autowired
-    public AuthController(DaoAuthenticationProvider daoAuthenticationProvider, AccountRepository accountRepository, StudentRepository studentRepository, TeacherRepository teacherRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider, ApplicationEventPublisher eventPublisher) {
+    public AuthController(DaoAuthenticationProvider daoAuthenticationProvider, AccountRepository accountRepository, StudentRepository studentRepository, TeacherRepository teacherRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider) {
         this.daoAuthenticationProvider = daoAuthenticationProvider;
         this.accountRepository = accountRepository;
         this.studentRepository = studentRepository;
@@ -51,7 +47,6 @@ public class AuthController {
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtProvider = jwtProvider;
-        this.eventPublisher = eventPublisher;
     }
 
     @PostMapping("/signin")
@@ -65,11 +60,11 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
         if (accountRepository.existsByUsername(signUpRequest.getUsername())) {
             return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken."), HttpStatus.BAD_REQUEST);
         }
-        // Create user account
         Account user = new Account(signUpRequest.getUsername(), passwordEncoder.encode(signUpRequest.getPassword()));
         Person person = new Person(signUpRequest.getName(), signUpRequest.getSurname());
         Set<String> strRoles = signUpRequest.getRole();
@@ -117,6 +112,7 @@ public class AuthController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteAccount(@PathVariable Long id) {
         accountRepository.deleteById(id);
         return new ResponseEntity<>(new ResponseMessage("Account deleted successfully."), HttpStatus.OK);

@@ -16,7 +16,6 @@ import pl.dmcs.project_backend.repository.TeacherRepository;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -39,6 +38,7 @@ public class SubjectController {
     }
 
     @GetMapping(value = "/{id}")
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
     public ResponseEntity<Subject> findSubject(@PathVariable("id") long id){
         Subject subject = subjectRepository.findById(id);
         if (subject == null){

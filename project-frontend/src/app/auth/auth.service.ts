@@ -26,16 +26,4 @@ export class AuthService {
   signUp(info: SignupInfo): Observable<string> {
     return this.http.post<string>(this.signupUrl, info, httpOptions);
   }
-
-  // getAccountType(): Observable<string> {
-  //   return this.http.get<string>(this.accountTypeUrl);
-  // }
-  //
-  // getTeacher(): Observable<Teacher> {
-  //   return this.http.get<Teacher>(this.teacherUrl);
-  // }
-  //
-  // getStudent(): Observable<Student> {
-  //   return this.http.get<Student>(this.studentUrl);
-  // }
 }

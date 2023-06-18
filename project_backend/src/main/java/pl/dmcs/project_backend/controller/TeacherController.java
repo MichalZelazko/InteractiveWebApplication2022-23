@@ -44,12 +44,6 @@ public class TeacherController {
         return new ResponseEntity<>(teacher, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Teacher> addTeacher(@RequestBody Teacher teacher){
-        teacherRepository.save(teacher);
-        return new ResponseEntity<>(teacher, HttpStatus.CREATED);
-    }
-
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Teacher> deleteTeacher(@PathVariable("id") long id){
         Teacher teacher = teacherRepository.findById(id);

@@ -55,8 +55,6 @@ public class WebSecurityConfig {
                         .requestMatchers("/subjects/**").permitAll()
                         .requestMatchers("/grades/**").permitAll()
                         .requestMatchers("/error").permitAll() // this enables the body in the exception responses
-                        .requestMatchers("/exampleSecurity/user").hasRole("STUDENT")
-                        .requestMatchers("/exampleSecurity/admin").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(unauthorized -> unauthorized

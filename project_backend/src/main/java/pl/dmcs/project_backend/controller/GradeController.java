@@ -32,13 +32,8 @@ public class GradeController {
         this.studentRepository = studentRepository;
     }
 
-    @GetMapping
-    public List<Grade> findAllGrades() {
-        return gradeRepository.findAll();
-    }
-
     @GetMapping(value = "/subject/{id}")
-    @PreAuthorize("hasRole('ROLE_TEACHER') || hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
     public List<Grade> findGradesBySubject(@PathVariable("id") long id){
         return gradeRepository.findGradesBySubjectId(id);
     }
@@ -50,16 +45,6 @@ public class GradeController {
         Account account = accountRepository.findByUsername(principal.getName()).orElseThrow(() -> new RuntimeException("Error: User is not logged in or not found!"));
         Student student = studentRepository.findByAccountUsername(account.getUsername());
         return gradeRepository.findGradesByStudentId(student.getId());
-    }
-
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Grade> findGrade(@PathVariable("id") long id){
-        Grade grade = gradeRepository.findById(id);
-        if (grade == null){
-            System.out.println("Grade with id " + id + " not found");
-            return new ResponseEntity<Grade>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<Grade>(grade, HttpStatus.OK);
     }
 
     @PostMapping

@@ -12,7 +12,6 @@ import {FormsModule} from "@angular/forms";
 import {authGuard} from "./guards/auth.guard";
 import { StudentComponent } from './student/student.component';
 import { TeacherComponent } from './teacher/teacher.component';
-import { GradeComponent } from './grade/grade.component';
 import { SubjectComponent } from './subject/subject.component';
 import { AdminComponent } from './admin/admin.component';
 import { GradebookComponent } from './gradebook/gradebook.component';
@@ -38,7 +37,6 @@ const routes: Routes = [
     HomeComponent,
     StudentComponent,
     TeacherComponent,
-    GradeComponent,
     SubjectComponent,
     AdminComponent,
     GradebookComponent,
