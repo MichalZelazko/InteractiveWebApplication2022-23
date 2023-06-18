@@ -18,7 +18,7 @@ public class Grade {
     @ManyToOne
     private Student student;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     private Subject subject;
 
     public long getId() {

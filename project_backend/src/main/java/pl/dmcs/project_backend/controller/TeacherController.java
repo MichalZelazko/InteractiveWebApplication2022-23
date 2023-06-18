@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.dmcs.project_backend.model.Grade;
+import pl.dmcs.project_backend.model.Subject;
 import pl.dmcs.project_backend.model.Teacher;
 import pl.dmcs.project_backend.repository.AccountRepository;
+import pl.dmcs.project_backend.repository.GradeRepository;
 import pl.dmcs.project_backend.repository.SubjectRepository;
 import pl.dmcs.project_backend.repository.TeacherRepository;
 
@@ -17,12 +20,13 @@ import java.util.List;
 public class TeacherController {
     private TeacherRepository teacherRepository;
     private SubjectRepository subjectRepository;
-    private AccountRepository accountRepository;
+    private GradeRepository gradeRepository;
 
     @Autowired
-    public TeacherController(TeacherRepository teacherRepository, SubjectRepository subjectRepository) {
+    public TeacherController(TeacherRepository teacherRepository, SubjectRepository subjectRepository, GradeRepository gradeRepository ) {
         this.teacherRepository = teacherRepository;
         this.subjectRepository = subjectRepository;
+        this.gradeRepository = gradeRepository;
     }
 
     @GetMapping
@@ -52,6 +56,13 @@ public class TeacherController {
         if (teacher == null){
             System.out.println("Teacher with id " + id + " not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        List<Subject> subjects = teacher.getSubjects();
+        List<Grade> grades;
+        for (Subject subject : subjects){
+            grades = gradeRepository.findGradesBySubjectId(subject.getId());
+            gradeRepository.deleteAll(grades);
+            subjectRepository.delete(subject);
         }
         teacherRepository.delete(teacher);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

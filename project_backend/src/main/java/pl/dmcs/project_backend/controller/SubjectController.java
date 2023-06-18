@@ -73,4 +73,15 @@ public class SubjectController {
         return new ResponseEntity<Subject>(subject, HttpStatus.CREATED);
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Subject> deleteSubject(@PathVariable("id") long id){
+        Subject subject = subjectRepository.findById(id);
+        if (subject == null){
+            System.out.println("Subject with id " + id + " not found");
+            return new ResponseEntity<Subject>(HttpStatus.NOT_FOUND);
+        }
+        subjectRepository.delete(subject);
+        return new ResponseEntity<Subject>(HttpStatus.NO_CONTENT);
+    }
+
 }

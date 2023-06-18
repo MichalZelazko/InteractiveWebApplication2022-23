@@ -38,7 +38,7 @@ public class GradeController {
     }
 
     @GetMapping(value = "/subject/{id}")
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    @PreAuthorize("hasRole('ROLE_TEACHER') || hasRole('ROLE_ADMIN')")
     public List<Grade> findGradesBySubject(@PathVariable("id") long id){
         return gradeRepository.findGradesBySubjectId(id);
     }
