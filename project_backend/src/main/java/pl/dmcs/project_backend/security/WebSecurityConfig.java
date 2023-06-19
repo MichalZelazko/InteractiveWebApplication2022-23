@@ -49,10 +49,14 @@ public class WebSecurityConfig {
 
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/home").permitAll()
+                        .requestMatchers("/auth/signin").permitAll()
+                        .requestMatchers("/auth/signup").hasRole("ADMIN")
+                        .requestMatchers("/admin").hasRole("ADMIN")
+                        .requestMatchers("/gradebook").hasRole("STUDENT")
+                        .requestMatchers("/subjects/**").permitAll()
                         .requestMatchers("/students/**").permitAll()
                         .requestMatchers("/teachers/**").permitAll()
-                        .requestMatchers("/subjects/**").permitAll()
                         .requestMatchers("/grades/**").permitAll()
                         .requestMatchers("/error").permitAll() // this enables the body in the exception responses
                         .anyRequest().authenticated()
