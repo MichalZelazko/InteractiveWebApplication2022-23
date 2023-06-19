@@ -31,6 +31,7 @@ export class SubjectComponent implements OnInit{
         console.log(data);
         this.isAddFailed = false;
         this.errorMessage = '';
+        this.getSubjects();
         this.reloadPage();
       },
       error => {
